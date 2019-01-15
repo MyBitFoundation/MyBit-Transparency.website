@@ -1,6 +1,7 @@
-# preact material app
+# MyBit-Transparency.website
+🔷 MyBit Transparency Portal for showcasing the MyBit Roadmap &amp; Projects to the community
 
-Super performant `Material` app for preact world using [preact-material-components](https://github.com/prateekbh/preact-material-components)
+Based on the super performant `Material` app for preact world using [preact-material-components](https://github.com/prateekbh/preact-material-components)
 
 ## CLI Commands
 
