@@ -1,4 +1,5 @@
 import axios from 'axios'
+import projects from '../mocks/projects';
 
 export default class API {
   constructor() {
@@ -7,8 +8,16 @@ export default class API {
     });
   }
     
+  // async getProjects() {
+  //   return await this.instance.get('/projects')
+  //   .then((response) => response.data)
+  // }
+  
   async getProjects() {
-    return await this.instance.get('/projects')
-    .then((response) => response.data)
+    return new Promise((res,rej) => {
+      setTimeout(() => 
+        res(projects.data)
+      , 3000)
+    })
   }
 }
