@@ -4,8 +4,8 @@ import LayoutGrid from 'preact-material-components/LayoutGrid';
 import 'preact-material-components/LayoutGrid/style.css';
 import 'preact-material-components/Card/style.css';
 import 'preact-material-components/Button/style.css';
-import style from './style';
 import styled from 'styled-components';
+import { Grid, Page, Inner, Cell } from '../../components/layout';
 
 const Title = styled.h2`
 	font-family: Gilroy;
@@ -14,16 +14,6 @@ const Title = styled.h2`
 	line-height: 40px;
 	font-size: 32px;
 	text-align: center;
-`
-
-const Container = styled.div`
-	padding: 20px;
-	min-height: 100%;
-	width: 100%;
-`
-
-const Page = styled(Container)`
-	padding-top: 56px;
 `
 
 const ProjectTitle = styled.h3`
@@ -49,11 +39,6 @@ const StyledCardHeader = styled.div`
 	width: 100%;
 `
 
-const StyledGrid = styled(LayoutGrid)`
-	&.mdc-layout-grid {
-		padding-top: 0;	
-	}
-`
 
 export default class Home extends Component {
 	constructor(props) {
@@ -73,29 +58,29 @@ export default class Home extends Component {
 		return (
 			<Page>
 				<Title>Projects</Title>
-				<StyledGrid>
-        			<LayoutGrid.Inner>
+				<Grid>
+        			<Inner>
         		{ 
         			projects.length > 0 ?
 					projects.map( project => (
-						<LayoutGrid.Cell phoneCols="4" align="middle">
+						<Cell tabletCols="4" phoneCols="4" align="middle">
 							<StyledCard>
 								<StyledCardHeader>
 									<ProjectTitle>{ project.name }</ProjectTitle>
 								</StyledCardHeader>
 							</StyledCard>
-						</LayoutGrid.Cell>
+						</Cell>
 					)) :
-					<LayoutGrid.Cell phoneCols="4" align="middle">
+					<Cell phoneCols="4" align="middle">
 						<StyledCard>
 							<StyledCardHeader>
 								<ProjectTitle> Loading... </ProjectTitle>
 							</StyledCardHeader>
 						</StyledCard>
-					</LayoutGrid.Cell>
+					</Cell>
 				}
-					</LayoutGrid.Inner>
-				</StyledGrid>
+					</Inner>
+				</Grid>
 			</Page>
 		);
 	}

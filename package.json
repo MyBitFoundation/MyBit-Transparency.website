@@ -35,6 +35,8 @@
     "preact-compat": "^3.17.0",
     "preact-material-components": "^1.4.3",
     "preact-router": "^2.5.5",
-    "styled-components": "3.4.10"
+    "styled-components": "3.4.10",
+    "styled-components-breakpoints": "^0.1.1",
+    "year": "^0.2.1"
   }
 }

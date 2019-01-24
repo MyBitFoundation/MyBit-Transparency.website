@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 
 import Header from './header';
+import Footer from './footer';
 import Home from '../routes/home';
 import NotFound from '../routes/404';
 
@@ -30,6 +31,7 @@ export default class App extends Component {
 					<Home path="/" API={this.API}/>
 					<NotFound default />
 				</Router>
+				<Footer />
 			</div>
 		);
 	}

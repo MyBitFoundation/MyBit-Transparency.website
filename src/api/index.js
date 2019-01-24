@@ -17,7 +17,7 @@ export default class API {
     return new Promise((res,rej) => {
       setTimeout(() => 
         res(projects.data)
-      , 3000)
+      , 1000)
     })
   }
 }
