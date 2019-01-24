@@ -86,7 +86,7 @@ const Footer = () => {
     <Container>
       <Grid slim>
         <Inner>
-          <Cell phoneCols="2">
+          <Cell phoneCols="2" desktopCols="3">
             <FooterList>
                 <ListItem><FooterHeader>About MyBit</FooterHeader></ListItem>
                 <ListItem>Company</ListItem>
@@ -95,7 +95,7 @@ const Footer = () => {
                 <ListItem>Contact</ListItem>
             </FooterList>
           </Cell>
-          <Cell phoneCols="2">
+          <Cell phoneCols="2" desktopCols="3">
             <FooterList>
                 <ListItem><FooterHeader>Products</FooterHeader></ListItem>
                 <ListItem>SDK</ListItem>
@@ -104,7 +104,7 @@ const Footer = () => {
                 <ListItem>Other dApps</ListItem>
             </FooterList>
           </Cell>
-          <Cell phoneCols="4" tabletCols="8">
+          <Cell phoneCols="4" tabletCols="8" desktopCols="3">
             <SocialFooterList>
               <ListItem center><FooterHeader>Follow Us</FooterHeader></ListItem>
               {
@@ -119,7 +119,7 @@ const Footer = () => {
               <FooterButton unelevated>Contribute</FooterButton>
             </Wrapper>
           </Cell>
-          <Cell phoneCols="4" tabletCols="8">
+          <Cell phoneCols="4" tabletCols="8" desktopCols="3">
             <Wrapper center top>
               <img src={mybit} />
               <Paragraph>
@@ -127,6 +127,10 @@ const Footer = () => {
                 6300 Zug, Switzerland.<br/>
                 Registration no. CHE-177.186.963
               </Paragraph>
+            </Wrapper>
+          </Cell>
+          <Cell cols="12">
+            <Wrapper center>
               <Paragraph>
                 Terms & Conditions
               </Paragraph>

@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import LayoutGrid from 'preact-material-components/LayoutGrid';
 import 'preact-material-components/LayoutGrid/style.css';
+import breakpoints, { defaultBreakpoints }  from 'styled-components-breakpoints'
+
+const media = breakpoints(defaultBreakpoints)
 
 export const Container = styled.div`
 	padding: 20px;
@@ -23,6 +26,11 @@ export const Wrapper = styled.div`
     padding-right: 16px;
     ${ props => props.center ? 'text-align: center;' : ''}
     ${ props => props.top ? 'margin-top: 24px;' : ''}
+    ${ props => props.topMobile ? `
+        ${media.maxWidth('s')`
+            margin-top: 24px;
+        `}
+    ` : ''}
 `
 
 export const Inner = styled(LayoutGrid.Inner)``

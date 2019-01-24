@@ -30,7 +30,7 @@ const ProjectTitle = styled.h3`
 `
 
 const StyledCard = styled(Card)`
-	height: 82px;
+	height: 125px;
 	width: 100%:
 `
 
@@ -63,10 +63,11 @@ export default class Home extends Component {
         		{ 
         			projects.length > 0 ?
 					projects.map( project => (
-						<Cell tabletCols="4" phoneCols="4" align="middle">
+						<Cell desktopCols="3" tabletCols="4" phoneCols="4" align="middle">
 							<StyledCard>
 								<StyledCardHeader>
 									<ProjectTitle>{ project.name }</ProjectTitle>
+									<p style={{ margin: '16px' }}>{ project.description }</p>
 								</StyledCardHeader>
 							</StyledCard>
 						</Cell>

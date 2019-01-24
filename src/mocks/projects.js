@@ -1,6 +1,7 @@
 module.exports = { data: [
     {
-        name: '1. Open Community Migration'
+        name: '1. Open Community Migration',
+        description: 'All activities related to the MyBit community'
     },
     {
         name: '2. ERC721 - Community Rankings'
@@ -27,7 +28,8 @@ module.exports = { data: [
         name: '8.1 MyBit Trust'
     },
     {
-        name: '8.2 Dropzone'
+        name: '8.2 Dropzone',
+        description: 'Crypto airdrop dAPP'
     },
     {
         name: '8.3 MyBit Will'
