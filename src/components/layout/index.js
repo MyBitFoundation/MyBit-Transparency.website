@@ -17,7 +17,8 @@ export const Page = styled(Container)`
 export const Grid = styled(LayoutGrid)`
 	&.mdc-layout-grid {
 		padding-top: 0;	
-		${ props => props.slim ? 'padding-left: 0; padding-right: 0;' : ''}
+		${ props => props.slim && 'padding-left: 0; padding-right: 0;'}
+		${ props => props.full && 'width: 100%' }
 	}
 `
 

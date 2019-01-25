@@ -1,43 +1,8 @@
 import { h, Component } from 'preact';
-import Card from 'preact-material-components/Card';
-import LayoutGrid from 'preact-material-components/LayoutGrid';
-import 'preact-material-components/LayoutGrid/style.css';
-import 'preact-material-components/Card/style.css';
-import 'preact-material-components/Button/style.css';
-import styled from 'styled-components';
+import { route } from 'preact-router';
 import { Grid, Page, Inner, Cell } from '../../components/layout';
-
-const Title = styled.h2`
-	font-family: Gilroy;
-	font-style: normal;
-	font-weight: bold;
-	line-height: 40px;
-	font-size: 32px;
-	text-align: center;
-`
-
-const ProjectTitle = styled.h3`
-	font-family: Gilroy;
-	font-style: normal;
-	font-weight: bold;
-	line-height: 22px;
-	font-size: 18px;
-	margin: 0;
-	padding: 16px;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-`
-
-const StyledCard = styled(Card)`
-	height: 125px;
-	width: 100%:
-`
-
-const StyledCardHeader = styled.div`
-	margin: auto;
-	width: 100%;
-`
+import { Title, ProjectTitle } from '../../components/typography';
+import { CardWrapper, CardHeader } from '../../components/card';
 
 
 export default class Home extends Component {
@@ -46,6 +11,10 @@ export default class Home extends Component {
 		this.state = {
 			projects: []
 		}
+	}
+	
+	goToProject(projectId) {
+		route(`/project/${projectId}`)
 	}
 	
 	async componentWillMount() {
@@ -64,20 +33,20 @@ export default class Home extends Component {
         			projects.length > 0 ?
 					projects.map( project => (
 						<Cell desktopCols="3" tabletCols="4" phoneCols="4" align="middle">
-							<StyledCard>
-								<StyledCardHeader>
+							<CardWrapper onClick={() => this.goToProject(project.id)} minHeight pointer>
+								<CardHeader>
 									<ProjectTitle>{ project.name }</ProjectTitle>
 									<p style={{ margin: '16px' }}>{ project.description }</p>
-								</StyledCardHeader>
-							</StyledCard>
+								</CardHeader>
+							</CardWrapper>
 						</Cell>
 					)) :
 					<Cell phoneCols="4" align="middle">
-						<StyledCard>
-							<StyledCardHeader>
+						<CardWrapper>
+							<CardHeader>
 								<ProjectTitle> Loading... </ProjectTitle>
-							</StyledCardHeader>
-						</StyledCard>
+							</CardHeader>
+						</CardWrapper>
 					</Cell>
 				}
 					</Inner>

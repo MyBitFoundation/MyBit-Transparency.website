@@ -59,7 +59,6 @@ export default class Header extends Component {
 	goHome = this.linkTo('/');
 
 	render(props) {
-		console.log(props.selectedRoute);
 		return (
 			<div>
 				<TopAppBar className="topappbar">
@@ -77,7 +76,7 @@ export default class Header extends Component {
 				</TopAppBar>
 				<Drawer modal ref={this.drawerRef}>
 					<Drawer.DrawerContent>
-						<DrawerItem selected={props.selectedRoute === '/'} onClick={this.goHome}>
+						<DrawerItem selected={props.selectedRoute === '/' || true} onClick={this.goHome}>
 							<List.ItemGraphic>home</List.ItemGraphic>
 							Projects
 						</DrawerItem>
