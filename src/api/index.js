@@ -60,6 +60,10 @@ export default class API {
       inbox: 'Our inbox by and for the community',
       todoset: 'Tasks for all project team members'
     }
+    this.projects = [];
+    this.projectMap = {};
+    
+    this.WAITING_TIME_IN_MS = 5000;
   }
   
   getIconFromCategory(category) {
@@ -69,14 +73,37 @@ export default class API {
   getDescriptionFromCategory(category) {
     return this.categoryDescriptionMap[category];
   }
-    
-  async getProjects() {
-    return await this.instance.get('/projects')
-    .then((response) => response.data)
-  }
   
-  async getProject(id) {
-    return await this.instance.post('/project', { id: id} )
-    .then((response) => response.data)
+  /*
+  * All methods are stored in memory, in order to make sure the application
+  * doesn’t perform calls to our servers while its being used, but on reaload
+  * it refreshes everything that has been called.
+  */ 
+  async getProjects() {
+    const projects = this.projects.length > 0 ? 
+      this.projects : 
+      await this.instance.get('/projects')
+        .then((response) => response.data)
+    this.projects = projects;
+    return projects;
+  }
+
+  async getTodosetLists(projectId, todosetId) {
+    const todoset = (project => 
+      project && project[todosetId])(this.projectMap[projectId]) ?
+      this.projectMap[projectId][todosetId] :
+      await this.instance.post('/todoset', { projectId: projectId, todosetId: todosetId })
+        .then((response) => response.data)
+    this.projectMap[projectId][todosetId] = todoset;
+    return todoset;
+  }
+
+  async getProject(projectId) {
+    const project = this.projectMap[projectId] ?
+      this.projectMap[projectId] :
+      await this.instance.post('/project', { projectId: projectId } )
+        .then((response) => response.data)
+    this.projectMap[projectId] = project;
+    return project;
   }
 }

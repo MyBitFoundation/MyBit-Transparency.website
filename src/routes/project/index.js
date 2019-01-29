@@ -1,40 +1,18 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
 import { Grid, Page, Inner, Cell } from '../../components/layout';
-import { Title, ProjectTitle } from '../../components/typography';
+import { Title, NavigationTitle, ProjectTitle } from '../../components/typography';
 import { CardWrapper, CardHeader } from '../../components/card';
 import leftCaret from '../../assets/svgs/icons/leftCaret.svg';
 import Icon from 'preact-material-components/Icon';
 import styled from 'styled-components';
 
-const BreadcrumbTitle = styled.span`
-    & {
-        font-family: Gilroy;
-        font-style: normal;
-        font-weight: bold;
-        line-height: normal;
-        font-size: 10px;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: #2F80ED;
-        display: flex;
-        margin: auto;
-        text-align: center;
-        ${ props => props.top && 'padding-top: 30px;' }
-        justify-content: center;
-        cursor: pointer;
-    }
-    
-    img  {
-        margin-right: 10px;
-    }
-`
 
 export default class Project extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.id,
+            projectId: this.props.projectId,
             project: {},
             components: []
         }
@@ -42,9 +20,14 @@ export default class Project extends Component {
     backToProjects() {
         route(`/`)
     }
+    
+    goToCategory(category, categoryId) {
+        const { projectId } = this.props;
+        route(`/project/${projectId}/${category}/${categoryId}`)
+    }
     async componentWillMount() {
-		const { API, id } = this.props;
-		const project = await API.getProject(id);
+		const { API, projectId } = this.props;
+		const project = await API.getProject(projectId);
 		const components = project.dock;
 		this.setState({ project, components })
 	}
@@ -53,7 +36,7 @@ export default class Project extends Component {
         const { API } = this.props;
         return (
             <Page>
-                <BreadcrumbTitle top onClick={() => this.backToProjects()}><img src={leftCaret} />Back to all projects</BreadcrumbTitle>
+                <NavigationTitle top onClick={() => this.backToProjects()}><img src={leftCaret} />Back to all projects</NavigationTitle>
 				<Title>{ project.name || 'Loading...'}</Title>
 				<h3 style={{ textAlign: "center" }}>
 				    { 
@@ -77,6 +60,9 @@ export default class Project extends Component {
         			                                </div>
         			                                <h4>{ component.title }</h4>
         			                                <p>{ API.getDescriptionFromCategory(component.name) }</p>
+        			                                <NavigationTitle onClick={() => this.goToCategory(component.name, component.id)}>
+        			                                    See { component.title }
+        			                                </NavigationTitle>
         			                            </Cell>
         			                        ))
         			                    }
@@ -91,7 +77,7 @@ export default class Project extends Component {
         			</Cell>
         			</Inner>
         		</Grid>
-        		<BreadcrumbTitle onClick={() => this.backToProjects()}><img src={leftCaret} />Back to all projects</BreadcrumbTitle>
+        		<NavigationTitle onClick={() => this.backToProjects()}><img src={leftCaret} />Back to all projects</NavigationTitle>
         	</Page>
         )
     }

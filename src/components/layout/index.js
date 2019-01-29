@@ -1,3 +1,4 @@
+import { h, Component } from 'preact';
 import styled from 'styled-components';
 import LayoutGrid from 'preact-material-components/LayoutGrid';
 import 'preact-material-components/LayoutGrid/style.css';
