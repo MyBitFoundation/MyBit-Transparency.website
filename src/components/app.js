@@ -27,6 +27,7 @@ export default class App extends Component {
 	render() {
 		return (
 			<div id="app">
+				<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
 				<Header selectedRoute={this.state.currentUrl} API={this.API}/>
 				<Router onChange={this.handleRoute}>
 					<Home path="/" API={this.API}/>

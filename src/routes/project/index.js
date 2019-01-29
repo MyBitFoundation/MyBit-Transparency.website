@@ -4,6 +4,7 @@ import { Grid, Page, Inner, Cell } from '../../components/layout';
 import { Title, ProjectTitle } from '../../components/typography';
 import { CardWrapper, CardHeader } from '../../components/card';
 import leftCaret from '../../assets/svgs/icons/leftCaret.svg';
+import Icon from 'preact-material-components/Icon';
 import styled from 'styled-components';
 
 const BreadcrumbTitle = styled.span`
@@ -19,7 +20,7 @@ const BreadcrumbTitle = styled.span`
         display: flex;
         margin: auto;
         text-align: center;
-        padding-top: 30px;
+        ${ props => props.top && 'padding-top: 30px;' }
         justify-content: center;
         cursor: pointer;
     }
@@ -44,15 +45,22 @@ export default class Project extends Component {
     async componentWillMount() {
 		const { API, id } = this.props;
 		const project = await API.getProject(id);
-		const components = await API.getProjectComponents(id);
+		const components = project.dock;
 		this.setState({ project, components })
 	}
     render() {
         const { project, components } = this.state;
+        const { API } = this.props;
         return (
             <Page>
-                <BreadcrumbTitle onClick={() => this.backToProjects()}><img src={leftCaret} />Back to all projects</BreadcrumbTitle>
+                <BreadcrumbTitle top onClick={() => this.backToProjects()}><img src={leftCaret} />Back to all projects</BreadcrumbTitle>
 				<Title>{ project.name || 'Loading...'}</Title>
+				<h3 style={{ textAlign: "center" }}>
+				    { 
+				        project.description || 
+				        'Loading project description...' 
+				    }
+				</h3>
 				<Grid>
         			<Inner>
         			<Cell desktopCols="12" tabletCols="8" phoneCols="4" align="middle">
@@ -63,8 +71,12 @@ export default class Project extends Component {
         			                <Inner>
         			                    { 
         			                        components.map( component => (
-        			                            <Cell desktopCols="4" tabletCols="4" phoneCols="2" align="middle">
-        			                                <h4>{ component.name }</h4>
+        			                            <Cell desktopCols="4" tabletCols="4" phoneCols="2" align="middle" padded>
+        			                                <div>
+        			                                    <Icon>{ API.getIconFromCategory(component.name) }</Icon>
+        			                                </div>
+        			                                <h4>{ component.title }</h4>
+        			                                <p>{ API.getDescriptionFromCategory(component.name) }</p>
         			                            </Cell>
         			                        ))
         			                    }
@@ -79,6 +91,7 @@ export default class Project extends Component {
         			</Cell>
         			</Inner>
         		</Grid>
+        		<BreadcrumbTitle onClick={() => this.backToProjects()}><img src={leftCaret} />Back to all projects</BreadcrumbTitle>
         	</Page>
         )
     }
