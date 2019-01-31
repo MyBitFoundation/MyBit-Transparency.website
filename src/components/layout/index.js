@@ -1,4 +1,5 @@
 import { h, Component } from 'preact';
+import { device } from '../../utils/mediaquery';
 import styled from 'styled-components';
 import LayoutGrid from 'preact-material-components/LayoutGrid';
 import 'preact-material-components/LayoutGrid/style.css';
@@ -7,8 +8,11 @@ import breakpoints, { defaultBreakpoints }  from 'styled-components-breakpoints'
 const media = breakpoints(defaultBreakpoints)
 
 export const Container = styled.div`
-	padding: 20px;
 	width: 100%;
+	@media ${device.tablet} {
+        padding: 20px;
+    }
+    ${ props => props.footer && 'margin-top: 16px' }
 `
 
 export const Page = styled(Container)`
@@ -18,8 +22,14 @@ export const Page = styled(Container)`
 export const Grid = styled(LayoutGrid)`
 	&.mdc-layout-grid {
 		padding-top: 0;	
+		padding-left: 0;
+		padding-right: 0;
 		${ props => props.slim && 'padding-left: 0; padding-right: 0;'}
 		${ props => props.full && 'width: 100%' }
+		@media ${device.tablet} {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
 	}
 `
 

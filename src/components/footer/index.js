@@ -83,7 +83,7 @@ const socialIcons = [ telegram, reddit, medium, twitter, facebook ]
 const Footer = () => {
   const dynamicYear = year() || '2019'
   return (
-    <Container>
+    <Container footer>
       <Grid slim>
         <Inner>
           <Cell phoneCols="2" desktopCols="3">
