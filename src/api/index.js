@@ -1,6 +1,8 @@
 import axios from 'axios'
 import projects from '../mocks/projects';
 import components from '../mocks/components';
+import concat from 'ramda/src/concat'
+import Q from 'q';
 
 class MockAPI {
   async get(path) {
@@ -102,8 +104,19 @@ export default class API {
     const todolist = (project => 
       project && project[todolistId])(this.projectMap[projectId]) ?
       this.projectMap[projectId][todolistId] :
-      await this.instance.post('/todolist', { projectId: projectId, todolistId: todolistId })
-        .then((response) => response.data)
+        (([completedTodos, uncompletedTodos]) =>
+          concat(completedTodos.value, uncompletedTodos.value)
+        )
+        (await Q.allSettled([true, false].map(
+          async (completed) =>
+            await this.instance.post('/todolist',
+              {
+                projectId: projectId,
+                todolistId: todolistId,
+                completed: completed
+              })
+            .then(response => response.data)
+        )))
     this.projectMap[projectId][todolistId] = todolist;
     return todolist;
   }
