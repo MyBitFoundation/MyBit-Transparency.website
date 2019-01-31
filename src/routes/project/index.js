@@ -54,13 +54,13 @@ export default class Project extends Component {
         			                <Inner>
         			                    { 
         			                        components.map( component => (
-        			                            <Cell desktopCols="4" tabletCols="4" phoneCols="2" align="middle" padded>
+        			                            <Cell desktopCols="4" tabletCols="4" phoneCols="4" align="middle" padded left>
         			                                <div>
         			                                    <Icon>{ API.getIconFromCategory(component.name) }</Icon>
         			                                </div>
         			                                <h4>{ component.title }</h4>
         			                                <p>{ API.getDescriptionFromCategory(component.name) }</p>
-        			                                <NavigationTitle onClick={() => this.goToCategory(component.name, component.id)}>
+        			                                <NavigationTitle left onClick={() => this.goToCategory(component.name, component.id)}>
         			                                    See { component.title }
         			                                </NavigationTitle>
         			                            </Cell>

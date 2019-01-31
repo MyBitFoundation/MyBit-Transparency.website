@@ -38,4 +38,5 @@ export const Wrapper = styled.div`
 export const Inner = styled(LayoutGrid.Inner)``
 export const Cell = styled(LayoutGrid.Cell)`
     ${ props => props.padded && 'margin: 20px 0; padding: 20px;' }
+    ${ props => props.left && 'text-align: left;' }
 `

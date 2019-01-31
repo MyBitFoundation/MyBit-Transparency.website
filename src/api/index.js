@@ -97,6 +97,16 @@ export default class API {
     this.projectMap[projectId][todosetId] = todoset;
     return todoset;
   }
+  
+  async getTodolist(projectId, todolistId) {
+    const todolist = (project => 
+      project && project[todolistId])(this.projectMap[projectId]) ?
+      this.projectMap[projectId][todolistId] :
+      await this.instance.post('/todolist', { projectId: projectId, todolistId: todolistId })
+        .then((response) => response.data)
+    this.projectMap[projectId][todolistId] = todolist;
+    return todolist;
+  }
 
   async getProject(projectId) {
     const project = this.projectMap[projectId] ?

@@ -17,14 +17,14 @@ const DescriptionWrapper = styled.div`
     }
 `
 
-export default class Todoset extends Component {
+export default class Todolist extends Component {
     constructor(props) {
         super(props);
         this.state = {
             projectId: this.props.projectId,
             project: {},
-            todosetId: this.props.todosetId,
-            todoset: {},
+            todolistId: this.props.todolistId,
+            todolist: {},
             isEmpty: false
         }
         this.reviewIfEmpty = this.reviewIfEmpty.bind(this);
@@ -33,48 +33,43 @@ export default class Todoset extends Component {
         const { projectId } = this.props;
         route(`/project/${projectId}`)
     }
-    goToTodolist(todolistId) {
+    backToTodoset() {
         const { projectId, todosetId } = this.props;
-        route(`/project/${projectId}/todoset/${todosetId}/todolist/${todolistId}`)
+        route(`/project/${projectId}/todoset/${todosetId}`)
     }
     async componentWillMount() {
-		const { API, todosetId, projectId } = this.props;
+		const { API, todolistId, projectId } = this.props;
 		const project = await API.getProject(projectId);
-        const todoset = await API.getTodosetLists(projectId, todosetId);
- 		this.setState({ project, todoset })
+        const todolist = await API.getTodolist(projectId, todolistId);
+ 		this.setState({ project, todolist })
 		setTimeout(this.reviewIfEmpty, API.WAITING_TIME_IN_MS);
 	}
 	reviewIfEmpty() {
-	    const { todoset } = this.state;
-	    this.setState({ isEmpty: !todoset.length > 0 })
+	    const { todolist } = this.state;
+	    this.setState({ isEmpty: !todolist.length > 0 })
 	}
     render() {
-        const { todoset, project, isEmpty } = this.state;
+        const { todolist, project, isEmpty } = this.state;
         const { API } = this.props;
         return (
             <Page>
-                <NavigationTitle top onClick={() => this.backToProject()}><img src={leftCaret} />Back to { project.name }</NavigationTitle>
+                <NavigationTitle top onClick={() => this.backToTodoset()}><img src={leftCaret} />Back to { project.name }</NavigationTitle>
 				<Title>Todo tasks for { project.name || 'Loading...' }</Title>
 				<Grid>
         			<Inner>
         			<Cell desktopCols="12" tabletCols="8" phoneCols="4" align="middle">
         			    <CardWrapper center>
         			        {
-        			            todoset.length > 0 ?
+        			            todolist.length > 0 ?
         			            <Grid full>
         			                <Inner>
         			                    { 
-        			                        todoset.map( component => (
+        			                        todolist.map( component => (
         			                            <Cell desktopCols="4" tabletCols="8" phoneCols="4" align="middle" padded left>
-        			                                <h4>{ component.title }</h4>
+        			                                <h4>{ component.content }</h4>
         			                                <DescriptionWrapper dangerouslySetInnerHTML={{ __html:component.description }}/>
-        			                                <p>Comments: { component.comments_count }</p>
         			                                <p>Creator: { component.creator.name }</p>
         			                                <p>Completed: { component.completed ? 'Yes' : 'No' }</p>
-        			                                <p>Tasks: { component.completed_ratio }</p>
-        			                                <NavigationTitle left onClick={() => this.goToTodolist(component.id)}>
-        			                                    See { component.title }
-        			                                </NavigationTitle>
         			                            </Cell>
         			                        ))
         			                    }
@@ -82,8 +77,8 @@ export default class Todoset extends Component {
         			            </Grid> :
         			            isEmpty ?
         			            <CardHeader>
-    							    <ProjectTitle>There are currently no todo lists.</ProjectTitle>
-    							    <p style={{ margin: '16px' }}>We couldn’t find any todos in this project, see another one.</p>
+    							    <ProjectTitle>There are currently no todo tasks.</ProjectTitle>
+    							    <p style={{ margin: '16px' }}>We couldn’t find any tasks in this todo list, see another one.</p>
     						    </CardHeader> :
         			            <CardHeader>
     							    <ProjectTitle>Loading...</ProjectTitle>
@@ -94,7 +89,7 @@ export default class Todoset extends Component {
         			</Cell>
         			</Inner>
         		</Grid>
-        		<NavigationTitle top onClick={() => this.backToProject()}><img src={leftCaret} />Back to { project.name }</NavigationTitle>
+        		<NavigationTitle top onClick={() => this.backToTodoset()}><img src={leftCaret} />Back to { project.name }</NavigationTitle>
         	</Page>
         )
     }

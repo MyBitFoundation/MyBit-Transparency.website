@@ -6,6 +6,7 @@ import Footer from './footer';
 import Home from '../routes/home';
 import Project from '../routes/project';
 import Todoset from '../routes/todoset';
+import Todolist from '../routes/todolist';
 import NotFound from '../routes/404';
 
 import API from '../api';
@@ -34,6 +35,7 @@ export default class App extends Component {
 					<Home path="/" API={this.API}/>
 					<Project path="/project/:projectId" API={this.API}/>
 					<Todoset path="/project/:projectId/todoset/:todosetId" API={this.API}/>
+					<Todolist path="/project/:projectId/todoset/:todosetId/todolist/:todolistId" API={this.API}/>
 					<NotFound default />
 				</Router>
 				<Footer />

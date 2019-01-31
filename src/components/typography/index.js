@@ -21,9 +21,11 @@ export const NavigationTitle = styled.span`
         color: #2F80ED;
         display: flex;
         margin: auto;
-        text-align: center;
         ${ props => props.top && 'padding-top: 30px;' }
-        justify-content: center;
+        ${ props => props.left ? '' : 
+        	`text-align: center;
+        	justify-content: center;`
+        }
         cursor: pointer;
     }
     
