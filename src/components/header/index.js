@@ -78,7 +78,7 @@ export default class Header extends Component {
 					<Drawer.DrawerContent>
 						<DrawerItem selected={props.selectedRoute === '/' || true} onClick={this.goHome}>
 							<List.ItemGraphic>home</List.ItemGraphic>
-							Projects
+							Home
 						</DrawerItem>
 					</Drawer.DrawerContent>
 				</Drawer>

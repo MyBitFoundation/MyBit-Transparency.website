@@ -1,10 +1,10 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
 import { Grid, Page, Inner, Cell } from '../../components/layout';
-import { Title, ProjectTitle, NavigationTitle } from '../../components/typography';
+import { Title, ProjectTitle, NavigationTitle, Subline, ComponentTitle, ComponentIcon } from '../../components/typography';
 import { CardWrapper, CardHeader } from '../../components/card';
 import leftCaret from '../../assets/svgs/icons/leftCaret.svg';
-import Icon from 'preact-material-components/Icon';
+
 import styled from 'styled-components';
 
 const DescriptionWrapper = styled.div`
@@ -54,7 +54,7 @@ export default class Todoset extends Component {
         return (
             <Page>
                 <NavigationTitle top onClick={() => this.backToProject()}><img src={leftCaret} />Back to { project.name }</NavigationTitle>
-				<Title>Todo tasks for { project.name || 'Loading...' }</Title>
+				<Title>Todo lists for { project.name || 'Loading...' }</Title>
 				<Grid>
         			<Inner>
         			<Cell desktopCols="12" tabletCols="8" phoneCols="4" align="middle">
@@ -66,12 +66,13 @@ export default class Todoset extends Component {
         			                    { 
         			                        todoset.map( component => (
         			                            <Cell desktopCols="4" tabletCols="8" phoneCols="4" align="middle" padded left>
-        			                                <h4>{ component.title }</h4>
+        			                                <ComponentTitle>
+        			                                    <ComponentIcon>{ component.completed ? 'check_box' : 'check_box_outline_blank' }</ComponentIcon>
+        			                                    { component.title }
+        			                                    <Subline>{ component.completed_ratio } completed</Subline>
+        			                                </ComponentTitle>
         			                                <DescriptionWrapper dangerouslySetInnerHTML={{ __html:component.description }}/>
-        			                                <p>Comments: { component.comments_count }</p>
-        			                                <p>Creator: { component.creator.name }</p>
-        			                                <p>Completed: { component.completed ? 'Yes' : 'No' }</p>
-        			                                <p>Tasks: { component.completed_ratio }</p>
+        			                                <p>Created by { component.creator.name }</p>
         			                                <NavigationTitle left onClick={() => this.goToTodolist(component.id)}>
         			                                    See { component.title }
         			                                </NavigationTitle>

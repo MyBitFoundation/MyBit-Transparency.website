@@ -1,7 +1,8 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
 import { Grid, Page, Inner, Cell } from '../../components/layout';
-import { Title, ProjectTitle, NavigationTitle } from '../../components/typography';
+import { Figure } from '../../components/figure';
+import { Title, ProjectTitle, NavigationTitle, ComponentTitle, ComponentIcon } from '../../components/typography';
 import { CardWrapper, CardHeader } from '../../components/card';
 import leftCaret from '../../assets/svgs/icons/leftCaret.svg';
 import Icon from 'preact-material-components/Icon';
@@ -53,7 +54,7 @@ export default class Todolist extends Component {
         const { API } = this.props;
         return (
             <Page>
-                <NavigationTitle top onClick={() => this.backToTodoset()}><img src={leftCaret} />Back to { project.name }</NavigationTitle>
+                <NavigationTitle top onClick={() => this.backToTodoset()}><img src={leftCaret} />Back to todo list</NavigationTitle>
 				<Title>Todo tasks for { project.name || 'Loading...' }</Title>
 				<Grid>
         			<Inner>
@@ -66,10 +67,12 @@ export default class Todolist extends Component {
         			                    { 
         			                        todolist.map( component => (
         			                            <Cell desktopCols="4" tabletCols="8" phoneCols="4" align="middle" padded left>
-        			                                <h4>{ component.content }</h4>
+        			                                <ComponentTitle>
+        			                                    <ComponentIcon>{ component.completed ? 'check_box' : 'check_box_outline_blank' }</ComponentIcon>
+        			                                    { component.content }
+        			                                </ComponentTitle>
         			                                <DescriptionWrapper dangerouslySetInnerHTML={{ __html:component.description }}/>
-        			                                <p>Creator: { component.creator.name }</p>
-        			                                <p>Completed: { component.completed ? 'Yes' : 'No' }</p>
+        			                                <p>Created by <Figure creator={component.creator} /></p>
         			                            </Cell>
         			                        ))
         			                    }
@@ -89,7 +92,7 @@ export default class Todolist extends Component {
         			</Cell>
         			</Inner>
         		</Grid>
-        		<NavigationTitle top onClick={() => this.backToTodoset()}><img src={leftCaret} />Back to { project.name }</NavigationTitle>
+        		<NavigationTitle top onClick={() => this.backToTodoset()}><img src={leftCaret} />Back to todo list</NavigationTitle>
         	</Page>
         )
     }

@@ -42,7 +42,7 @@ export default class API {
     this.instance = DEVELOPMENT_MODE ? 
       new MockAPI() :
       axios.create({
-        baseURL: 'https://transparency-api.mybit.io/',
+        baseURL: 'https://hq-api.mybit.io/',
       });
     this.categoryIconMap = {
       chat: 'chat',

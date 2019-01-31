@@ -1,3 +1,4 @@
+import Icon from 'preact-material-components/Icon';
 import styled from 'styled-components';
 
 export const Title = styled.h2`
@@ -45,4 +46,23 @@ export const ProjectTitle = styled.h3`
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+`
+
+export const ComponentTitle = styled.h4`
+	display: flex;
+	align-items: center;
+`
+
+export const ComponentIcon = styled(Icon)`
+	margin-right: 16px;
+`
+
+export const Subline = styled.small`
+	margin-left: 16px;
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 24px;
+	font-size: 16px;
+	color: #828282;
 `
