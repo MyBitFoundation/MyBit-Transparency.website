@@ -19,7 +19,10 @@ export const NavigationTitle = styled.span`
         font-size: 10px;
         letter-spacing: 0.2em;
         text-transform: uppercase;
-        color: #2F80ED;
+        ${ props => props.disabled  ?
+			'color: #828282;' :
+			'color: #2F80ED; cursor: pointer;'
+        }
         display: flex;
         margin: auto;
         ${ props => props.top ? 'padding-top: 30px;' : 'padding: 10px 0;' }
@@ -27,7 +30,6 @@ export const NavigationTitle = styled.span`
         	`text-align: center;
         	justify-content: center;`
         }
-        cursor: pointer;
     }
     
     img  {
@@ -55,6 +57,10 @@ export const ComponentTitle = styled.h4`
 
 export const ComponentIcon = styled(Icon)`
 	margin-right: 16px;
+`
+
+export const ColoredIcon = styled(Icon)`
+	color: #2D9CDB;
 `
 
 export const Subline = styled.small`

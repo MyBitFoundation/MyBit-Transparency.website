@@ -44,6 +44,15 @@ export default class API {
       axios.create({
         baseURL: 'https://hq-api.mybit.io/',
       });
+    this.enabledCategories = {
+      chat: false,
+      message_board: false,
+      schedule: false,
+      questionnaire: false,
+      vault: false,
+      inbox: false,
+      todoset: true
+    }
     this.categoryIconMap = {
       chat: 'chat',
       message_board: 'chat_bubble',
@@ -70,6 +79,10 @@ export default class API {
   
   getIconFromCategory(category) {
     return this.categoryIconMap[category];
+  }
+
+  getStatusFromCategory(category) {
+    return this.enabledCategories[category];
   }
   
   getDescriptionFromCategory(category) {

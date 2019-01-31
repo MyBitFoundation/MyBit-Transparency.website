@@ -1,10 +1,9 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
 import { Grid, Page, Inner, Cell } from '../../components/layout';
-import { Title, NavigationTitle, ProjectTitle } from '../../components/typography';
+import { Title, NavigationTitle, ProjectTitle, ColoredIcon } from '../../components/typography';
 import { CardWrapper, CardHeader } from '../../components/card';
 import leftCaret from '../../assets/svgs/icons/leftCaret.svg';
-import Icon from 'preact-material-components/Icon';
 import styled from 'styled-components';
 
 
@@ -56,13 +55,19 @@ export default class Project extends Component {
         			                        components.map( component => (
         			                            <Cell desktopCols="4" tabletCols="4" phoneCols="4" align="middle" padded left>
         			                                <div>
-        			                                    <Icon>{ API.getIconFromCategory(component.name) }</Icon>
+                                                        <ColoredIcon>{ API.getIconFromCategory(component.name) }</ColoredIcon>
         			                                </div>
         			                                <h4>{ component.title }</h4>
         			                                <p>{ API.getDescriptionFromCategory(component.name) }</p>
-        			                                <NavigationTitle left onClick={() => this.goToCategory(component.name, component.id)}>
-        			                                    See { component.title }
-        			                                </NavigationTitle>
+                                                    {
+                                                        API.getStatusFromCategory(component.name) ?
+                                                        <NavigationTitle left onClick={() => this.goToCategory(component.name, component.id)}>
+                                                            See { component.title }
+                                                        </NavigationTitle> :
+                                                        <NavigationTitle left disabled>
+                                                            Not yet available
+                                                        </NavigationTitle>
+                                                    }
         			                            </Cell>
         			                        ))
         			                    }
