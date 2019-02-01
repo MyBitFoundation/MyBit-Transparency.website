@@ -48,7 +48,7 @@ export default class API {
       chat: false,
       message_board: false,
       schedule: false,
-      questionnaire: false,
+      questionnaire: true,
       vault: false,
       inbox: false,
       todoset: true
@@ -103,7 +103,7 @@ export default class API {
     return projects;
   }
 
-  async getTodosetLists(projectId, todosetId) {
+  async getTodoset(projectId, todosetId) {
     const todoset = (project => 
       project && project[todosetId])(this.projectMap[projectId]) ?
       this.projectMap[projectId][todosetId] :
@@ -111,6 +111,16 @@ export default class API {
         .then((response) => response.data)
     this.projectMap[projectId][todosetId] = todoset;
     return todoset;
+  }
+  
+  async getQuestionnaire(projectId, questionnaireId) {
+    const questionnaire = (project => 
+      project && project[questionnaireId])(this.projectMap[projectId]) ?
+      this.projectMap[projectId][questionnaireId] :
+      await this.instance.post('/questionnaire', { projectId: projectId, questionnaireId: questionnaireId })
+        .then((response) => response.data)
+    this.projectMap[projectId][questionnaireId] = questionnaire;
+    return questionnaire;
   }
   
   async getTodolist(projectId, todolistId) {
@@ -132,6 +142,20 @@ export default class API {
         )))
     this.projectMap[projectId][todolistId] = todolist;
     return todolist;
+  }
+  
+  async getQuestion(projectId, questionId) {
+    const question = (project => 
+      project && project[questionId])(this.projectMap[projectId]) ?
+      this.projectMap[projectId][questionId] :
+      await this.instance.post('/question',
+        {
+          projectId: projectId,
+          questionId: questionId
+        })
+      .then(response => response.data)
+    this.projectMap[projectId][questionId] = question;
+    return question;
   }
 
   async getProject(projectId) {

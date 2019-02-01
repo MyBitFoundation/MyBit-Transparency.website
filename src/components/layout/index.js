@@ -51,3 +51,13 @@ export const Cell = styled(LayoutGrid.Cell)`
     ${ props => props.padded && 'margin: 20px 0; padding: 20px;' }
     ${ props => props.left && 'text-align: left;' }
 `
+
+export const DescriptionWrapper = styled.div`
+    figure {
+        display: inline;
+        margin: 0;
+    }
+    figcaption {
+        display: inline;
+    }
+`
