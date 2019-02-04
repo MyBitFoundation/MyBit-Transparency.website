@@ -27,7 +27,7 @@ export default class Project extends Component {
     async componentWillMount() {
 		const { API, projectId } = this.props;
 		const project = await API.getProject(projectId);
-		const components = project.dock;
+		const components = project.dock.filter( project => project.enabled ).sort((a, b) => a.title > b.title);
 		this.setState({ project, components })
 	}
     render() {

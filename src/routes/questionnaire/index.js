@@ -66,7 +66,7 @@ export default class Questionnaire extends Component {
         			                <Inner>
         			                    { 
         			                        questionnaire.map( component => (
-        			                            <Cell desktopCols="4" tabletCols="8" phoneCols="4" align="middle" padded left>
+        			                            <Cell desktopCols="4" tabletCols="8" phoneCols="4" align="top" padded left>
         			                                <ComponentTitle>
         			                                    { component.title }
         			                                </ComponentTitle>

@@ -19,8 +19,9 @@ export default class Home extends Component {
 	
 	async componentWillMount() {
 		const { API } = this.props;
-		const projects = await API.getProjects();
-		this.setState({ projects })
+		const projects = await API.getProjects()
+		const sortedProjcets = projects.sort((a, b) => a.name > b.name );
+		this.setState({ projects: sortedProjcets })
 	}
 	render() {
 		const { projects } = this.state;
@@ -32,8 +33,8 @@ export default class Home extends Component {
         		{ 
         			projects.length > 0 ?
 					projects.map( project => (
-						<Cell desktopCols="3" tabletCols="4" phoneCols="4" align="middle">
-							<CardWrapper onClick={() => this.goToProject(project.id)} minHeight pointer>
+						<Cell desktopCols="3" tabletCols="4" phoneCols="4" align="middle" style={{ height: '100%' }}>
+							<CardWrapper onClick={() => this.goToProject(project.id)} pointer>
 								<CardHeader>
 									<ProjectTitle>{ project.name }</ProjectTitle>
 									<p style={{ margin: '16px' }}>{ project.description }</p>
