@@ -5,8 +5,8 @@ import { Title, ProjectTitle, NavigationTitle, Subline, ComponentTitle, Componen
 import { CardWrapper, CardHeader } from '../../components/card';
 import { Figure } from '../../components/figure';
 import leftCaret from '../../assets/svgs/icons/leftCaret.svg';
-
 import styled from 'styled-components';
+
 
 const DescriptionWrapper = styled.div`
     figure {
@@ -71,7 +71,6 @@ export default class Questionnaire extends Component {
         			                                    { component.title }
         			                                </ComponentTitle>
         			                                <DescriptionWrapper dangerouslySetInnerHTML={{ __html:component.description }}/>
-                                                    <p>Created by <Figure creator={component.creator} /></p>
         			                                <NavigationTitle left onClick={() => this.goToQuestion(component.id)}>
         			                                    See responses
         			                                </NavigationTitle>

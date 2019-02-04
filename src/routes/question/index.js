@@ -1,11 +1,13 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
-import { Grid, Page, Inner, Cell, DescriptionWrapper } from '../../components/layout';
-import { Figure } from '../../components/figure';
-import { Title, ProjectTitle, NavigationTitle, ComponentTitle, Subline } from '../../components/typography';
+import dayjs from 'dayjs';
+import { Grid, Page, Inner, Cell } from '../../components/layout';
+import { Title, ProjectTitle, NavigationTitle } from '../../components/typography';
+import { CollapsableAnswers } from '../../components/collapse';
 import { CardWrapper, CardHeader } from '../../components/card';
 import leftCaret from '../../assets/svgs/icons/leftCaret.svg';
 
+const DAY_FORMAT = 'dddd, MMMM DD YYYY'
 
 export default class Question extends Component {
     constructor(props) {
@@ -13,9 +15,11 @@ export default class Question extends Component {
         this.state = {
             projectId: this.props.projectId,
             project: {},
+            questionnaire: {},
             questionId: this.props.questionId,
-            question: [],
-            isEmpty: false
+            answers: [],
+            isEmpty: false,
+            title: 'Loading...'
         }
         this.reviewIfEmpty = this.reviewIfEmpty.bind(this);
     }
@@ -28,44 +32,47 @@ export default class Question extends Component {
         route(`/project/${projectId}/questionnaire/${questionnaireId}`)
     }
     async componentWillMount() {
-		const { API, questionId, projectId } = this.props;
+		const { API, questionId, projectId, questionnaireId } = this.props;
 		const project = await API.getProject(projectId);
-        const question = await API.getQuestion(projectId, questionId);
- 		this.setState({ project, question })
+        const answers = await API.getQuestion(projectId, questionId);
+        const title = answers[0] ? answers[0].title : 'No questions had been found';
+
+        const groupedAnswers = answers.reduce(
+            (accum, currentAnswer) => {
+                const day = dayjs(currentAnswer.created_at)
+                const groupedByDay = day.format(DAY_FORMAT)
+                const currentAnswers = accum[groupedByDay] || []
+                currentAnswers.push(currentAnswer);
+                accum[groupedByDay] = currentAnswers;
+                return accum;
+            }, 
+            {}
+        )
+        
+
+ 		this.setState({ answers, groupedAnswers, title })
 		setTimeout(this.reviewIfEmpty, API.WAITING_TIME_IN_MS);
 	}
 	reviewIfEmpty() {
-	    const { question } = this.state;
-	    this.setState({ isEmpty: !question.length > 0 })
+	    const { answers } = this.state;
+	    this.setState({ isEmpty: !answers.length > 0 })
 	}
     render() {
-        const { question, project, isEmpty } = this.state;
+        const { answers, groupedAnswers, isEmpty, title } = this.state;
+        const today = dayjs().format(DAY_FORMAT)
         const { API } = this.props;
         return (
             <Page>
                 <NavigationTitle top onClick={() => this.backToQuestionnaire()}><img src={leftCaret} />Back to questionnaire</NavigationTitle>
-				<Title>Todo tasks for { project.name || 'Loading...' }</Title>
+				<Title>{ title }</Title>
 				<Grid>
         			<Inner>
         			<Cell desktopCols="12" tabletCols="8" phoneCols="4" align="middle">
         			    <CardWrapper center>
         			        {
-        			            question.length > 0 ?
+        			            answers.length > 0 ?
         			            <Grid full>
-        			                <Inner>
-        			                    { 
-        			                        question.map( component => (
-        			                            <Cell desktopCols="4" tabletCols="8" phoneCols="4" align="middle" padded left>
-        			                                <ComponentTitle>
-        			                                    { component.title }
-        			                                    <Subline>{ component.group_on }</Subline>
-        			                                </ComponentTitle>
-        			                                <DescriptionWrapper dangerouslySetInnerHTML={{ __html:component.content }}/>
-        			                                <p><Figure creator={component.creator} /></p>
-        			                            </Cell>
-        			                        ))
-        			                    }
-        			                </Inner>
+        			                <CollapsableAnswers groupedAnswers={groupedAnswers} selectedAnswer={today} />
         			            </Grid> :
         			            isEmpty ?
         			            <CardHeader>

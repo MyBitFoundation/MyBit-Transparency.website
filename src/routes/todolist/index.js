@@ -55,7 +55,7 @@ export default class Todolist extends Component {
         			                <Inner>
         			                    { 
         			                        todolist.map( component => (
-        			                            <Cell desktopCols="4" tabletCols="8" phoneCols="4" align="middle" padded left>
+        			                            <Cell desktopCols="12" tabletCols="8" phoneCols="4" align="middle" padded left>
         			                                <ComponentTitle>
         			                                    <ComponentIcon>{ component.completed ? 'check_box' : 'check_box_outline_blank' }</ComponentIcon>
         			                                    { component.content }

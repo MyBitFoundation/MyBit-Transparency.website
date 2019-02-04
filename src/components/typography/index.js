@@ -8,6 +8,8 @@ export const Title = styled.h2`
 	line-height: 40px;
 	font-size: 32px;
 	text-align: center;
+	padding-left: 16px;
+	padding-right: 16px;
 `
 
 export const NavigationTitle = styled.span`
@@ -50,9 +52,26 @@ export const ProjectTitle = styled.h3`
 	text-overflow: ellipsis;
 `
 
+export const ProfileTitle = styled.h5`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 24px;
+	font-size: 16px;
+`
+
 export const ComponentTitle = styled.h4`
 	display: flex;
 	align-items: center;
+	font-family: Gilroy;
+	font-style: normal;
+	font-weight: bold;
+	line-height: 22px;
+	font-size: 18px;
+	justify-content: space-between;
 `
 
 export const ComponentIcon = styled(Icon)`

@@ -39,7 +39,7 @@ export default class App extends Component {
 					<Todoset path="/project/:projectId/todoset/:todosetId" API={this.API}/>
 					<Questionnaire path="/project/:projectId/questionnaire/:questionnaireId" API={this.API}/>
 					<Todolist path="/project/:projectId/todoset/:todosetId/todolist/:todolistId" API={this.API}/>
-					<Question path="/project/:projectId/questionnaire/:todosetId/question/:questionId" API={this.API}/>
+					<Question path="/project/:projectId/questionnaire/:questionnaireId/question/:questionId" API={this.API}/>
 					<NotFound default />
 				</Router>
 				<Footer />
