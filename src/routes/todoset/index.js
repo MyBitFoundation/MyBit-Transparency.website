@@ -5,7 +5,7 @@ import { Title, ProjectTitle, NavigationTitle, Subline, ComponentTitle, Componen
 import { CardWrapper, CardHeader } from '../../components/card';
 import { Figure } from '../../components/figure';
 import leftCaret from '../../assets/svgs/icons/leftCaret.svg';
-
+import { Spinner } from '../../components/spinner';
 import styled from 'styled-components';
 
 const DescriptionWrapper = styled.div`
@@ -88,6 +88,7 @@ export default class Todoset extends Component {
     							    <p style={{ margin: '16px' }}>We couldn’t find any todos in this project, see another one.</p>
     						    </CardHeader> :
         			            <CardHeader>
+        			                <Spinner />
     							    <ProjectTitle>Loading...</ProjectTitle>
     							    <p style={{ margin: '16px' }}>Should take a few secs.</p>
     						    </CardHeader>

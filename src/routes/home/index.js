@@ -3,6 +3,7 @@ import { route } from 'preact-router';
 import { Grid, Page, Inner, Cell } from '../../components/layout';
 import { Title, ProjectTitle } from '../../components/typography';
 import { CardWrapper, CardHeader } from '../../components/card';
+import { Spinner } from '../../components/spinner';
 
 
 export default class Home extends Component {
@@ -42,9 +43,10 @@ export default class Home extends Component {
 							</CardWrapper>
 						</Cell>
 					)) :
-					<Cell phoneCols="4" align="middle">
+					<Cell desktopCols="12" tabletCols="8" phoneCols="4" align="middle" style={{ textAlign: 'center' }}>
 						<CardWrapper>
 							<CardHeader>
+								<Spinner />
 								<ProjectTitle> Loading... </ProjectTitle>
 							</CardHeader>
 						</CardWrapper>

@@ -5,6 +5,7 @@ import { Figure } from '../../components/figure';
 import { Title, ProjectTitle, NavigationTitle, ComponentTitle, ComponentIcon } from '../../components/typography';
 import { CardWrapper, CardHeader } from '../../components/card';
 import leftCaret from '../../assets/svgs/icons/leftCaret.svg';
+import { Spinner } from '../../components/spinner';
 
 
 export default class Todolist extends Component {
@@ -73,6 +74,7 @@ export default class Todolist extends Component {
     							    <p style={{ margin: '16px' }}>We couldn’t find any tasks in this todo list, see another one.</p>
     						    </CardHeader> :
         			            <CardHeader>
+        			                <Spinner />
     							    <ProjectTitle>Loading...</ProjectTitle>
     							    <p style={{ margin: '16px' }}>Should take a few secs.</p>
     						    </CardHeader>

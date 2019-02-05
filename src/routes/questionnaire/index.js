@@ -1,9 +1,9 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
 import { Grid, Page, Inner, Cell } from '../../components/layout';
-import { Title, ProjectTitle, NavigationTitle, Subline, ComponentTitle, ComponentIcon } from '../../components/typography';
+import { Title, ProjectTitle, NavigationTitle, ComponentTitle } from '../../components/typography';
 import { CardWrapper, CardHeader } from '../../components/card';
-import { Figure } from '../../components/figure';
+import { Spinner } from '../../components/spinner';
 import leftCaret from '../../assets/svgs/icons/leftCaret.svg';
 import styled from 'styled-components';
 
@@ -85,6 +85,7 @@ export default class Questionnaire extends Component {
     							    <p style={{ margin: '16px' }}>We couldn’t find any questions in this project, see another one.</p>
     						    </CardHeader> :
         			            <CardHeader>
+        			                <Spinner />
     							    <ProjectTitle>Loading...</ProjectTitle>
     							    <p style={{ margin: '16px' }}>Should take a few secs.</p>
     						    </CardHeader>

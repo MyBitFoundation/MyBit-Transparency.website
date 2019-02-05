@@ -6,6 +6,7 @@ import { Title, ProjectTitle, NavigationTitle } from '../../components/typograph
 import { CollapsableAnswers } from '../../components/collapse';
 import { CardWrapper, CardHeader } from '../../components/card';
 import leftCaret from '../../assets/svgs/icons/leftCaret.svg';
+import { Spinner } from '../../components/spinner';
 
 const DAY_FORMAT = 'dddd, MMMM DD YYYY'
 
@@ -80,6 +81,7 @@ export default class Question extends Component {
     							    <p style={{ margin: '16px' }}>We couldn’t find any answers in this questionnaire, see another one.</p>
     						    </CardHeader> :
         			            <CardHeader>
+        			                <Spinner />
     							    <ProjectTitle>Loading...</ProjectTitle>
     							    <p style={{ margin: '16px' }}>Should take a few secs.</p>
     						    </CardHeader>

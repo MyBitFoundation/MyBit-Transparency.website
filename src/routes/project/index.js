@@ -4,7 +4,7 @@ import { Grid, Page, Inner, Cell } from '../../components/layout';
 import { Title, NavigationTitle, ProjectTitle, ColoredIcon } from '../../components/typography';
 import { CardWrapper, CardHeader } from '../../components/card';
 import leftCaret from '../../assets/svgs/icons/leftCaret.svg';
-import styled from 'styled-components';
+import { Spinner } from '../../components/spinner';
 
 
 export default class Project extends Component {
@@ -74,6 +74,7 @@ export default class Project extends Component {
         			                </Inner>
         			            </Grid> :
         			            <CardHeader>
+        			                <Spinner />
     							    <ProjectTitle>Loading...</ProjectTitle>
     							    <p style={{ margin: '16px' }}>Should take a few secs.</p>
     						    </CardHeader>
