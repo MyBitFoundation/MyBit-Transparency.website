@@ -9,6 +9,8 @@ import Todoset from '../routes/todoset';
 import Todolist from '../routes/todolist';
 import Questionnaire from '../routes/questionnaire';
 import Question from '../routes/question';
+import Vault from '../routes/vault';
+import Document from '../routes/document';
 import NotFound from '../routes/404';
 
 import API from '../api';
@@ -40,6 +42,8 @@ export default class App extends Component {
 					<Questionnaire path="/project/:projectId/questionnaire/:questionnaireId" API={this.API}/>
 					<Todolist path="/project/:projectId/todoset/:todosetId/todolist/:todolistId" API={this.API}/>
 					<Question path="/project/:projectId/questionnaire/:questionnaireId/question/:questionId" API={this.API}/>
+					<Vault path="/project/:projectId/vault/:vaultId" API={this.API} />
+					<Document path="/project/:projectId/vault/:vaultId/document/:documentId" API={this.API} />
 					<NotFound default />
 				</Router>
 				<Footer />

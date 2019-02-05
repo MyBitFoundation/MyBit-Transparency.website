@@ -61,3 +61,13 @@ export const DescriptionWrapper = styled.div`
         display: inline;
     }
 `
+
+export const DocumentWrapper = styled.div`
+    figure {
+        display: inline;
+        margin: 0;
+    }
+    figcaption {
+        display: inline;
+    }
+`

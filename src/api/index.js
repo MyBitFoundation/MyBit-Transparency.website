@@ -49,7 +49,7 @@ export default class API {
       message_board: false,
       schedule: false,
       questionnaire: true,
-      vault: false,
+      vault: true,
       inbox: false,
       todoset: true
     }
@@ -123,6 +123,16 @@ export default class API {
     return questionnaire;
   }
   
+  async getDocumentsFromVault(projectId, vaultId) {
+    const documents = (project => 
+      project && project[vaultId])(this.projectMap[vaultId]) ?
+      this.projectMap[projectId][vaultId] :
+      await this.instance.post('/vault', { projectId: projectId, vaultId: vaultId })
+        .then((response) => response.data)
+    this.projectMap[projectId][vaultId] = documents;
+    return documents;
+  }
+  
   async getTodolist(projectId, todolistId) {
     const todolist = (project => 
       project && project[todolistId])(this.projectMap[projectId]) ?
@@ -156,6 +166,20 @@ export default class API {
       .then(response => response.data)
     this.projectMap[projectId][questionId] = question;
     return question;
+  }
+  
+  async getDocument(projectId, documentId) {
+    const doc = (project => 
+      project && project[documentId])(this.projectMap[documentId]) ?
+      this.projectMap[projectId][documentId] :
+      await this.instance.post('/document',
+        {
+          projectId: projectId,
+          documentId: documentId
+        })
+      .then(response => response.data)
+    this.projectMap[projectId][documentId] = doc;
+    return doc;
   }
 
   async getProject(projectId) {
