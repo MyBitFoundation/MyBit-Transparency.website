@@ -84,7 +84,7 @@ export default class Todoset extends Component {
         			            </Grid> :
         			            isEmpty ?
         			            <CardHeader>
-    							    <ProjectTitle>There are currently no todo lists.</ProjectTitle>
+    							    <ProjectTitle>There are currently no todos.</ProjectTitle>
     							    <p style={{ margin: '16px' }}>We couldn’t find any todos in this project, see another one.</p>
     						    </CardHeader> :
         			            <CardHeader>

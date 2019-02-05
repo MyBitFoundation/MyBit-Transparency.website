@@ -21,8 +21,8 @@ export default class Home extends Component {
 	async componentWillMount() {
 		const { API } = this.props;
 		const projects = await API.getProjects()
-		const sortedProjcets = projects.sort((a, b) => a.name > b.name );
-		this.setState({ projects: sortedProjcets })
+		projects.sort((a, b) => a.name <= b.name ? a.name === b.name ? 0 : -1 : 1 );
+		this.setState({ projects })
 	}
 	render() {
 		const { projects } = this.state;

@@ -82,7 +82,7 @@ export default class Questionnaire extends Component {
         			            isEmpty ?
         			            <CardHeader>
     							    <ProjectTitle>There are currently no todo lists.</ProjectTitle>
-    							    <p style={{ margin: '16px' }}>We couldn’t find any questions in this project, see another one.</p>
+    							    <p style={{ margin: '16px' }}>We couldn’t find any questionnaires in this project, see another one.</p>
     						    </CardHeader> :
         			            <CardHeader>
         			                <Spinner />

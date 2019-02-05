@@ -78,7 +78,7 @@ export default class Question extends Component {
         			            isEmpty ?
         			            <CardHeader>
     							    <ProjectTitle>There are currently no answers for this questionnaire.</ProjectTitle>
-    							    <p style={{ margin: '16px' }}>We couldn’t find any answers in this questionnaire, see another one.</p>
+    							    <p style={{ margin: '16px' }}>We couldn’t find any answers in this question, see another one.</p>
     						    </CardHeader> :
         			            <CardHeader>
         			                <Spinner />
