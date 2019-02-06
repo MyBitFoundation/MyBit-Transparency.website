@@ -71,7 +71,10 @@ export const ComponentTitle = styled.h4`
 	font-weight: bold;
 	line-height: 22px;
 	font-size: 18px;
-	justify-content: space-between;
+	${ props => props.start ? 
+		'justify-content: flex-start;' :
+		'justify-content: space-between;'
+	}
 `
 
 export const ComponentIcon = styled(Icon)`

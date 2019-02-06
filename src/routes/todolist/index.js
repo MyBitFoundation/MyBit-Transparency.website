@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import { route } from 'preact-router';
 import { Grid, Page, Inner, Cell, DescriptionWrapper } from '../../components/layout';
 import { Figure } from '../../components/figure';
-import { Title, ProjectTitle, NavigationTitle, ComponentTitle, ComponentIcon } from '../../components/typography';
+import { Title, ProjectTitle, NavigationTitle, ComponentTitle, ComponentIcon, ProfileTitle } from '../../components/typography';
 import { CardWrapper, CardHeader } from '../../components/card';
 import leftCaret from '../../assets/svgs/icons/leftCaret.svg';
 import { Spinner } from '../../components/spinner';
@@ -57,12 +57,14 @@ export default class Todolist extends Component {
         			                    { 
         			                        todolist.map( component => (
         			                            <Cell desktopCols="12" tabletCols="8" phoneCols="4" align="middle" padded left>
-        			                                <ComponentTitle>
+        			                                <ComponentTitle start>
         			                                    <ComponentIcon>{ component.completed ? 'check_box' : 'check_box_outline_blank' }</ComponentIcon>
         			                                    { component.content }
         			                                </ComponentTitle>
         			                                <DescriptionWrapper dangerouslySetInnerHTML={{ __html:component.description }}/>
-        			                                <p>Created by <Figure creator={component.creator} /></p>
+        			                                <ProfileTitle>
+                                                        <Figure creator={component.creator} />
+                                                    </ProfileTitle>
         			                            </Cell>
         			                        ))
         			                    }

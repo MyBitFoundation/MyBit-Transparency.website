@@ -34,6 +34,7 @@ export default class App extends Component {
 		return (
 			<div id="app">
 				<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+				<link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" />
 				<Header selectedRoute={this.state.currentUrl} API={this.API}/>
 				<Router onChange={this.handleRoute}>
 					<Home path="/" API={this.API}/>

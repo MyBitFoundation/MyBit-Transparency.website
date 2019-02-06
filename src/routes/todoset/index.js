@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
 import { Grid, Page, Inner, Cell } from '../../components/layout';
-import { Title, ProjectTitle, NavigationTitle, Subline, ComponentTitle, ComponentIcon } from '../../components/typography';
+import { Title, ProjectTitle, NavigationTitle, Subline, ComponentTitle, ComponentIcon, ProfileTitle } from '../../components/typography';
 import { CardWrapper, CardHeader } from '../../components/card';
 import { Figure } from '../../components/figure';
 import leftCaret from '../../assets/svgs/icons/leftCaret.svg';
@@ -73,7 +73,9 @@ export default class Todoset extends Component {
         			                                    <Subline>{ component.completed_ratio } completed</Subline>
         			                                </ComponentTitle>
         			                                <DescriptionWrapper dangerouslySetInnerHTML={{ __html:component.description }}/>
-                                                    <p>Created by <Figure creator={component.creator} /></p>
+                                                    <ProfileTitle>
+                                                        <Figure creator={component.creator} />
+                                                    </ProfileTitle>
         			                                <NavigationTitle left onClick={() => this.goToTodolist(component.id)}>
         			                                    See { component.title }
         			                                </NavigationTitle>
