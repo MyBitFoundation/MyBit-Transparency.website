@@ -1,8 +1,21 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
+import Dialog from 'preact-material-components/Dialog';
+import 'preact-material-components/Dialog/style.css';
 import { Grid, Page, Inner, Cell, DescriptionWrapper } from '../../components/layout';
 import { Figure } from '../../components/figure';
-import { Title, ProjectTitle, NavigationTitle, ComponentTitle, ComponentIcon, ProfileTitle } from '../../components/typography';
+import { 
+    Title, 
+    ProjectTitle, 
+    NavigationTitle, 
+    ComponentTitle, 
+    Subline, 
+    ComponentIcon, 
+    ProfileTitle, 
+    CommentWrapper,
+    CommentTitle,
+    CommentContentWrapper
+} from '../../components/typography';
 import { CardWrapper, CardHeader } from '../../components/card';
 import leftCaret from '../../assets/svgs/icons/leftCaret.svg';
 import { Spinner } from '../../components/spinner';
@@ -16,9 +29,11 @@ export default class Todolist extends Component {
             project: {},
             todolistId: this.props.todolistId,
             todolist: [],
+            comments: [],
             isEmpty: false
         }
         this.reviewIfEmpty = this.reviewIfEmpty.bind(this);
+        this.loadComment = this.loadComment.bind(this);
     }
     backToProject() {
         const { projectId } = this.props;
@@ -27,6 +42,12 @@ export default class Todolist extends Component {
     backToTodoset() {
         const { projectId, todosetId } = this.props;
         route(`/project/${projectId}/todoset/${todosetId}`)
+    }
+    async loadComment(commentId) {
+        this.setState({ comments: [] });
+        const { API, projectId } = this.props;
+        const comments = await API.getComments(projectId, commentId);
+        this.setState({ comments })
     }
     async componentWillMount() {
 		const { API, todolistId, projectId } = this.props;
@@ -40,7 +61,7 @@ export default class Todolist extends Component {
 	    this.setState({ isEmpty: !todolist.length > 0 })
 	}
     render() {
-        const { todolist, project, isEmpty } = this.state;
+        const { todolist, project, isEmpty, comments } = this.state;
         const { API } = this.props;
         return (
             <Page>
@@ -64,7 +85,19 @@ export default class Todolist extends Component {
         			                                <DescriptionWrapper dangerouslySetInnerHTML={{ __html:component.description }}/>
         			                                <ProfileTitle>
                                                         <Figure creator={component.creator} />
+                                                        <Subline>
+                                                            { component.comments_count } comments
+                                                        </Subline>
                                                     </ProfileTitle>
+                                                    {
+                                                        component.comments_count > 0 && 
+                                                        <NavigationTitle left onClick={()=>{
+                                                            this.loadComment(component.id);
+                                                            this.scrollingDlg.MDComponent.show();
+                                                        }}>
+                                                           See comments
+                                                        </NavigationTitle>
+                                                    }
         			                            </Cell>
         			                        ))
         			                    }
@@ -86,6 +119,28 @@ export default class Todolist extends Component {
         			</Inner>
         		</Grid>
         		<NavigationTitle top onClick={() => this.backToTodoset()}><img src={leftCaret} />Back to todo list</NavigationTitle>
+                <Dialog ref={ scrollingDlg => this.scrollingDlg = scrollingDlg }>
+                  <Dialog.Header>Comments</Dialog.Header>
+                  <Dialog.Body scrollable={true}>
+                    <div>
+                    {
+                        comments.length > 0 ?
+                        comments.map( comment => (
+                            <CommentWrapper>
+                                <CommentTitle>
+                                    <Figure creator={comment.creator} />
+                                </CommentTitle>
+                                <CommentContentWrapper dangerouslySetInnerHTML={{ __html:comment.content }}/>
+                            </CommentWrapper>
+                        )) :
+                        <p>Loading...</p>
+                    }
+                    </div>
+                  </Dialog.Body>
+                  <Dialog.Footer>
+                    <Dialog.FooterButton accept={true}>Close</Dialog.FooterButton>
+                  </Dialog.Footer>
+                </Dialog>
         	</Page>
         )
     }

@@ -30,7 +30,6 @@ export class CollapsableAnswers extends Component {
     const { groupedAnswers } = this.props;
     const { selectedAnswer } = this.state;
     const isDaySelectedAnswer = (day) => day !== selectedAnswer;
-    console.log('[ CollapsableAnswers ] render - selectedAnswer', selectedAnswer);
     const rendereableAnswers = (groupedAnswers) =>
       (
         Object.keys(groupedAnswers).map( day =>

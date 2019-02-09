@@ -1,5 +1,9 @@
 import Icon from 'preact-material-components/Icon';
+import { device } from '../../utils/mediaquery';
 import styled from 'styled-components';
+import breakpoints, { defaultBreakpoints }  from 'styled-components-breakpoints'
+
+const media = breakpoints(defaultBreakpoints)
 
 export const Title = styled.h2`
 	font-family: Gilroy;
@@ -93,4 +97,38 @@ export const Subline = styled.small`
 	line-height: 24px;
 	font-size: 16px;
 	color: #828282;
+`
+
+export const CommentWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    @media ${device.tablet} {
+    	flex-direction: row;
+    }
+`
+
+export const CommentTitle = styled(ProfileTitle)`
+    margin-right: 20px;
+    width: 100%;
+    @media ${device.tablet} {
+        width: 25%;
+    }
+`
+
+export const CommentContentWrapper = styled.div`
+	& {
+		width: 100%;
+		@media ${device.tablet} {
+            width: 75%;
+        }
+	}
+    figure {
+        display: inline;
+        margin: 0;
+    }
+    figcaption {
+        display: inline;
+    }
 `

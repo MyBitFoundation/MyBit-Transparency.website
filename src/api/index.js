@@ -46,7 +46,7 @@ export default class API {
       });
     this.enabledCategories = {
       chat: false,
-      message_board: false,
+      message_board: true,
       schedule: false,
       questionnaire: true,
       vault: true,
@@ -168,6 +168,34 @@ export default class API {
     return question;
   }
   
+  async getComments(projectId, commentId) {
+    const comments = (project => 
+      project && project[commentId])(this.projectMap[commentId]) ?
+      this.projectMap[projectId][commentId] :
+      await this.instance.post('/comments',
+        {
+          projectId: projectId,
+          commentId: commentId
+        })
+      .then(response => response.data)
+    this.projectMap[projectId][commentId] = comments;
+    return comments;
+  }
+  
+  async getMessageBoard(projectId, messageBoardId) {
+    const messageBoard = (project => 
+      project && project[messageBoardId])(this.projectMap[messageBoardId]) ?
+      this.projectMap[projectId][messageBoardId] :
+      await this.instance.post('/message_board',
+        {
+          projectId: projectId,
+          messageBoardId: messageBoardId
+        })
+      .then(response => response.data)
+    this.projectMap[projectId][messageBoardId] = messageBoard;
+    return messageBoard;
+  }
+
   async getDocument(projectId, documentId) {
     const doc = (project => 
       project && project[documentId])(this.projectMap[documentId]) ?
