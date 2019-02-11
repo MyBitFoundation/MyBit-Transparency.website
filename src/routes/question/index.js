@@ -32,6 +32,10 @@ export default class Question extends Component {
         const { projectId, questionnaireId } = this.props;
         route(`/project/${projectId}/questionnaire/${questionnaireId}`)
     }
+    async componentDidMount() {
+        const { hasLoaded } = this.props;
+		hasLoaded();
+    }
     async componentWillMount() {
 		const { API, questionId, projectId, questionnaireId } = this.props;
 		const project = await API.getProject(projectId);

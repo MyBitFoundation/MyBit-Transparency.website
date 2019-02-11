@@ -75,7 +75,7 @@ export const ComponentTitle = styled.h4`
 	font-weight: bold;
 	line-height: 22px;
 	font-size: 18px;
-	${ props => props.start ? 
+	${ props => props.start || props.left ? 
 		'justify-content: flex-start;' :
 		'justify-content: space-between;'
 	}

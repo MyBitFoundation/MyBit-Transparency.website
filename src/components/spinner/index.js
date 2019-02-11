@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 const StyledAnimatedLogo = styled.div`
     display: inline-block;
+    margin: 30px;
     font-size: ${props => props.size};
     line-height: 1;
     svg {

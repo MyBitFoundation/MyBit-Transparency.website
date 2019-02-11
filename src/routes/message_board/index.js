@@ -31,6 +31,10 @@ export default class MessageBoard extends Component {
         const { projectId, messageBoardId } = this.props;
         route(`/project/${projectId}/message_board/${messageBoardId}/document/${messageId}`)
     }
+    async componentDidMount() {
+        const { hasLoaded } = this.props;
+		hasLoaded();
+    }
     async componentWillMount() {
 		const { API, messageBoardId, projectId } = this.props;
 		const project = await API.getProject(projectId);

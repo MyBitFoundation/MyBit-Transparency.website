@@ -24,6 +24,10 @@ export default class Project extends Component {
         const { projectId } = this.props;
         route(`/project/${projectId}/${category}/${categoryId}`)
     }
+    async componentDidMount() {
+        const { hasLoaded } = this.props;
+		hasLoaded();
+    }
     async componentWillMount() {
 		const { API, projectId } = this.props;
 		const project = await API.getProject(projectId);

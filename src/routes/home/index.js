@@ -17,7 +17,10 @@ export default class Home extends Component {
 	goToProject(projectId) {
 		route(`/project/${projectId}`)
 	}
-	
+	async componentDidMount() {
+        const { hasLoaded } = this.props;
+		hasLoaded();
+    }
 	async componentWillMount() {
 		const { API } = this.props;
 		const projects = await API.getProjects()

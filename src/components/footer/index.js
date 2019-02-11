@@ -84,7 +84,7 @@ const Footer = () => {
   const dynamicYear = year() || '2019'
   return (
     <Container footer>
-      <Grid slim>
+      <Grid slim noMax>
         <Inner>
           <Cell phoneCols="2" desktopCols="3">
             <FooterList>

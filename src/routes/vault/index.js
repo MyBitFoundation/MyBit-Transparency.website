@@ -38,6 +38,10 @@ export default class Vault extends Component {
         const { projectId, vaultId } = this.props;
         route(`/project/${projectId}/vault/${vaultId}/document/${documentId}`)
     }
+    async componentDidMount() {
+        const { hasLoaded } = this.props;
+		hasLoaded();
+    }
     async componentWillMount() {
 		const { API, vaultId, projectId } = this.props;
 		const project = await API.getProject(projectId);

@@ -38,6 +38,10 @@ export default class Todoset extends Component {
         const { projectId, todosetId } = this.props;
         route(`/project/${projectId}/todoset/${todosetId}/todolist/${todolistId}`)
     }
+    async componentDidMount() {
+        const { hasLoaded } = this.props;
+		hasLoaded();
+    }
     async componentWillMount() {
 		const { API, todosetId, projectId } = this.props;
 		const project = await API.getProject(projectId);
@@ -66,8 +70,8 @@ export default class Todoset extends Component {
         			                <Inner>
         			                    { 
         			                        todoset.map( component => (
-        			                            <Cell desktopCols="4" tabletCols="8" phoneCols="4" align="middle" padded left>
-        			                                <ComponentTitle>
+        			                            <Cell desktopCols="12" tabletCols="8" phoneCols="4" align="middle" padded left>
+        			                                <ComponentTitle left>
         			                                    <ComponentIcon>{ component.completed ? 'check_box' : 'check_box_outline_blank' }</ComponentIcon>
         			                                    { component.title }
         			                                    <Subline>{ component.completed_ratio } completed</Subline>

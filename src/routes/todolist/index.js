@@ -49,6 +49,10 @@ export default class Todolist extends Component {
         const comments = await API.getComments(projectId, commentId);
         this.setState({ comments })
     }
+    async componentDidMount() {
+        const { hasLoaded } = this.props;
+		hasLoaded();
+    }
     async componentWillMount() {
 		const { API, todolistId, projectId } = this.props;
 		const project = await API.getProject(projectId);

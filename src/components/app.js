@@ -20,6 +20,11 @@ export default class App extends Component {
 	constructor(props) {
 		super(props);
 		this.API = new API();
+		this.state = {
+			currentUrl: '/',
+			isLoading: true,
+		}
+		this.hasLoaded = this.hasLoaded.bind(this);
 	}
 	/** Gets fired when the route changes.
 	 *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
@@ -27,26 +32,34 @@ export default class App extends Component {
 	 */
 	handleRoute = e => {
 		this.setState({
-			currentUrl: e.url
+			currentUrl: e.url,
+			isLoading: true
 		});
 	};
-
+	
+	hasLoaded(isLoading = false) {
+		this.setState({ isLoading })
+	}
+	
 	render() {
 		return (
 			<div id="app">
 				<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
 				<link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" />
 				<Header selectedRoute={this.state.currentUrl} API={this.API}/>
+				{
+					this.state.isLoading && <h1 style={{ padding: '110px', textAlign: 'center' }}> Loading... </h1>
+				}
 				<Router onChange={this.handleRoute}>
-					<Home path="/" API={this.API}/>
-					<Project path="/project/:projectId" API={this.API}/>
-					<Todoset path="/project/:projectId/todoset/:todosetId" API={this.API}/>
-					<Questionnaire path="/project/:projectId/questionnaire/:questionnaireId" API={this.API}/>
-					<Todolist path="/project/:projectId/todoset/:todosetId/todolist/:todolistId" API={this.API}/>
-					<Question path="/project/:projectId/questionnaire/:questionnaireId/question/:questionId" API={this.API}/>
-					<Vault path="/project/:projectId/vault/:vaultId" API={this.API} />
-					<Document path="/project/:projectId/vault/:vaultId/document/:documentId" API={this.API} />
-					<MessageBoard path="/project/:projectId/message_board/:messageBoardId" API={this.API} />
+					<Home path="/" API={this.API} hasLoaded={this.hasLoaded} />
+					<Project path="/project/:projectId" API={this.API} hasLoaded={this.hasLoaded} />
+					<Todoset path="/project/:projectId/todoset/:todosetId" API={this.API} hasLoaded={this.hasLoaded} />
+					<Questionnaire path="/project/:projectId/questionnaire/:questionnaireId" API={this.API} hasLoaded={this.hasLoaded} />
+					<Todolist path="/project/:projectId/todoset/:todosetId/todolist/:todolistId" API={this.API} hasLoaded={this.hasLoaded} />
+					<Question path="/project/:projectId/questionnaire/:questionnaireId/question/:questionId" API={this.API} hasLoaded={this.hasLoaded} />
+					<Vault path="/project/:projectId/vault/:vaultId" API={this.API} hasLoaded={this.hasLoaded} />
+					<Document path="/project/:projectId/vault/:vaultId/document/:documentId" API={this.API} hasLoaded={this.hasLoaded} />
+					<MessageBoard path="/project/:projectId/message_board/:messageBoardId" API={this.API} hasLoaded={this.hasLoaded} />
 					<NotFound default />
 				</Router>
 				<Footer />
