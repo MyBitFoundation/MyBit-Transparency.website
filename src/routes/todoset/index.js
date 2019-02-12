@@ -71,18 +71,17 @@ export default class Todoset extends Component {
         			                    { 
         			                        todoset.map( component => (
         			                            <Cell desktopCols="12" tabletCols="8" phoneCols="4" align="middle" padded left>
-        			                                <ComponentTitle left>
+        			                                <ComponentTitle left noMargin>
         			                                    <ComponentIcon>{ component.completed ? 'check_box' : 'check_box_outline_blank' }</ComponentIcon>
         			                                    { component.title }
-        			                                    <Subline>{ component.completed_ratio } completed</Subline>
+        			                                    <Subline right>{ component.completed_ratio } completed</Subline>
         			                                </ComponentTitle>
-        			                                <DescriptionWrapper dangerouslySetInnerHTML={{ __html:component.description }}/>
-                                                    <ProfileTitle>
-                                                        <Figure creator={component.creator} />
+                                                    <ProfileTitle noMargin>
+                                                        <Figure small leftMargin creator={component.creator} />
+                                                        <NavigationTitle noMargin left onClick={() => this.goToTodolist(component.id)}>
+        			                                        See tasks
+        			                                    </NavigationTitle>
                                                     </ProfileTitle>
-        			                                <NavigationTitle left onClick={() => this.goToTodolist(component.id)}>
-        			                                    See { component.title }
-        			                                </NavigationTitle>
         			                            </Cell>
         			                        ))
         			                    }

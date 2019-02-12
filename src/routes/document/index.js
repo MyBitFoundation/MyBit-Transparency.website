@@ -28,6 +28,10 @@ export default class Document extends Component {
         const { projectId, vaultId } = this.props;
         route(`/project/${projectId}/vault/${vaultId}`)
     }
+    async componentDidMount() {
+        const { hasLoaded } = this.props;
+		hasLoaded();
+    }
     async componentWillMount() {
 		const { API, documentId, projectId } = this.props;
 		const project = await API.getProject(projectId);

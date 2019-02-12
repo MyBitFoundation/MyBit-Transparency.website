@@ -31,6 +31,7 @@ export const NavigationTitle = styled.span`
         }
         display: flex;
         margin: auto;
+        ${ props => props.noMargin && 'margin: 0;' }
         ${ props => props.top ? 'padding-top: 30px;' : 'padding: 10px 0;' }
         ${ props => props.left ? '' : 
         	`text-align: center;
@@ -54,6 +55,7 @@ export const ProjectTitle = styled.h3`
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	${ props => props.noMargin && 'margin: 0;' }
 `
 
 export const ProfileTitle = styled.h5`
@@ -65,6 +67,7 @@ export const ProfileTitle = styled.h5`
 	font-weight: 500;
 	line-height: 24px;
 	font-size: 16px;
+	${ props => props.noMargin && 'margin: 0;' }
 `
 
 export const ComponentTitle = styled.h4`
@@ -76,9 +79,11 @@ export const ComponentTitle = styled.h4`
 	line-height: 22px;
 	font-size: 18px;
 	${ props => props.start || props.left ? 
-		'justify-content: flex-start;' :
+		'justify-content: flex-start; align-items: flex-start;' :
 		'justify-content: space-between;'
+		
 	}
+	${ props => props.noMargin && 'margin: 0;' }
 `
 
 export const ComponentIcon = styled(Icon)`
@@ -97,6 +102,9 @@ export const Subline = styled.small`
 	line-height: 24px;
 	font-size: 16px;
 	color: #828282;
+	flex: 1;
+	${ props => props.right && 'text-align: right;' }
+	${ props => props.date && 'white-space: pre;' }
 `
 
 export const CommentWrapper = styled.div`

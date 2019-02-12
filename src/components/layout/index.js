@@ -27,6 +27,7 @@ export const Grid = styled(LayoutGrid)`
 		max-width: 900px;
 		${ props => props.noMax && 'max-width: none;' }
 		${ props => props.slim && 'padding-left: 0; padding-right: 0;'}
+		${ props => props.padded && 'padding: 20px;'}
 		${ props => props.full && 'width: 100%' }
 		@media ${device.tablet} {
             padding-left: 16px;

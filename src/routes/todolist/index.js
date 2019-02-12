@@ -77,31 +77,31 @@ export default class Todolist extends Component {
         			    <CardWrapper center>
         			        {
         			            todolist.length > 0 ?
-        			            <Grid full>
+        			            <Grid full padded>
         			                <Inner>
         			                    { 
         			                        todolist.map( component => (
         			                            <Cell desktopCols="12" tabletCols="8" phoneCols="4" align="middle" padded left>
-        			                                <ComponentTitle start>
+        			                                <ComponentTitle start noMargin>
         			                                    <ComponentIcon>{ component.completed ? 'check_box' : 'check_box_outline_blank' }</ComponentIcon>
         			                                    { component.content }
-        			                                </ComponentTitle>
-        			                                <DescriptionWrapper dangerouslySetInnerHTML={{ __html:component.description }}/>
-        			                                <ProfileTitle>
-                                                        <Figure creator={component.creator} />
-                                                        <Subline>
-                                                            { component.comments_count } comments
+        			                                    <Subline date right>
+                                                            { component.due_on }
                                                         </Subline>
+        			                                </ComponentTitle>
+        			                                <ProfileTitle noMargin>
+                                                        <Figure small leftMargin creator={component.creator} />
+                                                        {
+                                                            component.comments_count > 0 && 
+                                                            <NavigationTitle noMargin left onClick={()=>{
+                                                                this.loadComment(component.id);
+                                                                this.scrollingDlg.MDComponent.show();
+                                                            }}>
+                                                               { component.comments_count } comments
+                                                            </NavigationTitle>
+                                                        }
                                                     </ProfileTitle>
-                                                    {
-                                                        component.comments_count > 0 && 
-                                                        <NavigationTitle left onClick={()=>{
-                                                            this.loadComment(component.id);
-                                                            this.scrollingDlg.MDComponent.show();
-                                                        }}>
-                                                           See comments
-                                                        </NavigationTitle>
-                                                    }
+                                                    
         			                            </Cell>
         			                        ))
         			                    }
