@@ -1,8 +1,6 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
 import { Grid, Page, Inner, Cell } from '../../components/layout';
-import Dialog from 'preact-material-components/Dialog';
-import 'preact-material-components/Dialog/style.css';
 import { Title, ProjectTitle, NavigationTitle, ComponentTitle,CommentWrapper,CommentContentWrapper } from '../../components/typography';
 import { CardWrapper, CardHeader } from '../../components/card';
 import { Spinner } from '../../components/spinner';
@@ -29,7 +27,7 @@ export default class MessageBoard extends Component {
     }
     goToMessage(messageId) {
         const { projectId, messageBoardId } = this.props;
-        route(`/project/${projectId}/message_board/${messageBoardId}/document/${messageId}`)
+        route(`/project/${projectId}/message_board/${messageBoardId}/message/${messageId}`)
     }
     async componentDidMount() {
         const { hasLoaded } = this.props;
@@ -71,10 +69,7 @@ export default class MessageBoard extends Component {
         			                                <ComponentTitle>
         			                                    { component.title }
         			                                </ComponentTitle>
-        			                                <NavigationTitle left onClick={()=>{
-                                                            this.loadMessage(component.content);
-                                                            this.scrollingDlg.MDComponent.show();
-                                                        }}>
+        			                                <NavigationTitle left onClick={()=>this.goToMessage(component.id)}>
                                                        See message
                                                     </NavigationTitle>
         			                            </Cell>
@@ -98,22 +93,6 @@ export default class MessageBoard extends Component {
         			</Inner>
         		</Grid>
         		<NavigationTitle top onClick={() => this.backToProject()}><img src={leftCaret} />Back to { project.name }</NavigationTitle>
-        		<Dialog ref={ scrollingDlg => this.scrollingDlg = scrollingDlg }>
-                  <Dialog.Header>Message</Dialog.Header>
-                  <Dialog.Body scrollable={true}>
-                    <div>
-                    {
-                        message &&
-                        <CommentWrapper>
-                            <CommentContentWrapper dangerouslySetInnerHTML={{ __html: message }}/>
-                        </CommentWrapper>
-                    }
-                    </div>
-                  </Dialog.Body>
-                  <Dialog.Footer>
-                    <Dialog.FooterButton accept={true}>Close</Dialog.FooterButton>
-                  </Dialog.Footer>
-                </Dialog>
         	</Page>
         )
     }

@@ -13,6 +13,7 @@ import Vault from '../routes/vault';
 import Document from '../routes/document';
 import NotFound from '../routes/404';
 import MessageBoard from '../routes/message_board';
+import Message from '../routes/message';
 
 import API from '../api';
 
@@ -60,6 +61,7 @@ export default class App extends Component {
 					<Vault path="/project/:projectId/vault/:vaultId" API={this.API} hasLoaded={this.hasLoaded} />
 					<Document path="/project/:projectId/vault/:vaultId/document/:documentId" API={this.API} hasLoaded={this.hasLoaded} />
 					<MessageBoard path="/project/:projectId/message_board/:messageBoardId" API={this.API} hasLoaded={this.hasLoaded} />
+					<Message path="/project/:projectId/message_board/:messageBoardId/message/:messageId" API={this.API} hasLoaded={this.hasLoaded} />
 					<NotFound default />
 				</Router>
 				<Footer />

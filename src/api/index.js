@@ -195,6 +195,20 @@ export default class API {
     this.projectMap[projectId][messageBoardId] = messageBoard;
     return messageBoard;
   }
+  
+  async getMessage(projectId, messageId) {
+    const message = (project => 
+      project && project[messageId])(this.projectMap[messageId]) ?
+      this.projectMap[projectId][messageId] :
+      await this.instance.post('/message',
+        {
+          projectId: projectId,
+          messageId: messageId
+        })
+      .then(response => response.data)
+    this.projectMap[projectId][messageId] = message;
+    return message;
+  }
 
   async getDocument(projectId, documentId) {
     const doc = (project => 
