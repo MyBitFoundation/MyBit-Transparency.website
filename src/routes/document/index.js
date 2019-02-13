@@ -6,6 +6,7 @@ import { Title, ProjectTitle, NavigationTitle, ProfileTitle } from '../../compon
 import { CardWrapper, CardHeader } from '../../components/card';
 import leftCaret from '../../assets/svgs/icons/leftCaret.svg';
 import { Spinner } from '../../components/spinner';
+import Comments from '../../components/comments';
 
 
 export default class Document extends Component {
@@ -44,8 +45,8 @@ export default class Document extends Component {
 	    this.setState({ isEmpty: !doc.content })
 	}
     render() {
-        const { doc, project, isEmpty } = this.state;
-        const { API } = this.props;
+        const { doc, isEmpty } = this.state;
+        const { API, projectId } = this.props;
         return (
             <Page>
                 <NavigationTitle top onClick={() => this.backToDocuments()}><img src={leftCaret} />Back to documents</NavigationTitle>
@@ -62,6 +63,12 @@ export default class Document extends Component {
 			                                <DocumentWrapper dangerouslySetInnerHTML={{ __html:doc.content }}/>
 			                                <ProfileTitle>
                                                 <Figure creator={doc.creator} />
+                                                <Comments 
+                                                    API={API} 
+                                                    projectId={projectId} 
+                                                    comments_count={doc.comments_count}
+                                                    id={doc.id}
+                                                />
                                             </ProfileTitle>
 			                            </Cell>
         			                </Inner>

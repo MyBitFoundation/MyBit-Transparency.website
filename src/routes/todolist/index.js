@@ -1,24 +1,20 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
-import Dialog from 'preact-material-components/Dialog';
-import 'preact-material-components/Dialog/style.css';
-import { Grid, Page, Inner, Cell, DescriptionWrapper } from '../../components/layout';
+import { Grid, Page, Inner, Cell } from '../../components/layout';
 import { Figure } from '../../components/figure';
 import { 
-    Title, 
-    ProjectTitle, 
-    NavigationTitle, 
-    ComponentTitle, 
-    Subline, 
-    ComponentIcon, 
-    ProfileTitle, 
-    CommentWrapper,
-    CommentTitle,
-    CommentContentWrapper
+    Title,
+    ProjectTitle,
+    NavigationTitle,
+    ComponentTitle,
+    Subline,
+    ComponentIcon,
+    ProfileTitle
 } from '../../components/typography';
 import { CardWrapper, CardHeader } from '../../components/card';
 import leftCaret from '../../assets/svgs/icons/leftCaret.svg';
 import { Spinner } from '../../components/spinner';
+import Comments from '../../components/comments';
 
 
 export default class Todolist extends Component {
@@ -66,7 +62,7 @@ export default class Todolist extends Component {
 	}
     render() {
         const { todolist, project, isEmpty, comments } = this.state;
-        const { API } = this.props;
+        const { API, projectId } = this.props;
         return (
             <Page>
                 <NavigationTitle top onClick={() => this.backToTodoset()}><img src={leftCaret} />Back to todo list</NavigationTitle>
@@ -91,15 +87,12 @@ export default class Todolist extends Component {
         			                                </ComponentTitle>
         			                                <ProfileTitle noMargin>
                                                         <Figure small leftMargin creator={component.creator} />
-                                                        {
-                                                            component.comments_count > 0 && 
-                                                            <NavigationTitle noMargin left onClick={()=>{
-                                                                this.loadComment(component.id);
-                                                                this.scrollingDlg.MDComponent.show();
-                                                            }}>
-                                                               { component.comments_count } comments
-                                                            </NavigationTitle>
-                                                        }
+                                                        <Comments 
+                                                            API={API} 
+                                                            projectId={projectId} 
+                                                            comments_count={component.comments_count}
+                                                            id={component.id}
+                                                        />
                                                     </ProfileTitle>
                                                     
         			                            </Cell>
@@ -123,28 +116,6 @@ export default class Todolist extends Component {
         			</Inner>
         		</Grid>
         		<NavigationTitle top onClick={() => this.backToTodoset()}><img src={leftCaret} />Back to todo list</NavigationTitle>
-                <Dialog ref={ scrollingDlg => this.scrollingDlg = scrollingDlg }>
-                  <Dialog.Header>Comments</Dialog.Header>
-                  <Dialog.Body scrollable={true}>
-                    <div>
-                    {
-                        comments.length > 0 ?
-                        comments.map( comment => (
-                            <CommentWrapper>
-                                <CommentTitle>
-                                    <Figure creator={comment.creator} />
-                                </CommentTitle>
-                                <CommentContentWrapper dangerouslySetInnerHTML={{ __html:comment.content }}/>
-                            </CommentWrapper>
-                        )) :
-                        <p>Loading...</p>
-                    }
-                    </div>
-                  </Dialog.Body>
-                  <Dialog.Footer>
-                    <Dialog.FooterButton accept={true}>Close</Dialog.FooterButton>
-                  </Dialog.Footer>
-                </Dialog>
         	</Page>
         )
     }
