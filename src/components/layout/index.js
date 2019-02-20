@@ -24,14 +24,18 @@ export const Grid = styled(LayoutGrid)`
 		padding-top: 0;	
 		padding-left: 0;
 		padding-right: 0;
-		max-width: 900px;
+		max-width: 1024px;
 		${ props => props.noMax && 'max-width: none;' }
 		${ props => props.slim && 'padding-left: 0; padding-right: 0;'}
 		${ props => props.padded && 'padding: 20px;'}
 		${ props => props.full && 'width: 100%' }
+		${ props => props.last && 'padding-bottom: 0' }
 		@media ${device.tablet} {
-            padding-left: 16px;
-            padding-right: 16px;
+            ${
+                props => props.slim ?
+                    'padding-left: 0; padding-right: 0;' :
+                    'padding-left: 16px; padding-right: 16px;'
+            }
         }
 	}
 `
@@ -52,6 +56,7 @@ export const Inner = styled(LayoutGrid.Inner)``
 export const Cell = styled(LayoutGrid.Cell)`
     word-wrap: break-word;
     ${ props => props.padded && 'margin: 20px 0; padding: 20px;' }
+    ${ props => props.topPadded && 'padding: 16px 0;' }
     ${ props => props.left && 'text-align: left;' }
 `
 

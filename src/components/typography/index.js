@@ -16,8 +16,9 @@ export const Title = styled.h2`
 	padding-right: 16px;
 `
 
-export const NavigationTitle = styled.span`
+export const NavigationTitle = styled.a`
     & {
+		text-decoration: none;
         font-family: Gilroy;
         font-style: normal;
         font-weight: bold;

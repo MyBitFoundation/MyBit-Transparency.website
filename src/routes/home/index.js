@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
 import { Grid, Page, Inner, Cell } from '../../components/layout';
-import { Title, ProjectTitle } from '../../components/typography';
+import { Title, ProjectTitle, NavigationTitle, ColoredIcon } from '../../components/typography';
 import { CardWrapper, CardHeader } from '../../components/card';
 import { Spinner } from '../../components/spinner';
 
@@ -29,11 +29,69 @@ export default class Home extends Component {
 	}
 	render() {
 		const { projects } = this.state;
+		const { API } = this.props;
 		return (
 			<Page>
 				<Title>Projects</Title>
 				<Grid>
         			<Inner>
+					<Cell desktopCols="12" tabletCols="8" phoneCols="4" align="middle">
+						<CardWrapper style={{ padding: '32px' }}>
+							<p>
+							Welcome to the MyBit Transparency Portal. We believe that all projects should be open
+							and transparent to the fullest extent possible. This automated portal plugs directly into
+							our workflow tool (Basecamp) and allows our community to view all of our activity in real
+							time including, message boards, chats, tasks, documents and files, schedules,
+							and daily check ins.
+							</p>
+							<p>
+							Each project is isolated for organisational purposes so you can choose the project you wish
+							to view and then navigate to the different aspects of it.
+							</p>
+							<Grid full last slim>
+								<Inner>
+								{
+									[
+									{
+										icon: 'access_time',
+										description: 'What the team works on daily?',
+										link:
+											<NavigationTitle left onClick={() => route('project/10222521/questionnaire/1482309517/question/1482309522')}>
+												View activity
+											</NavigationTitle>
+									},
+									{
+										icon: 'chat',
+										description: 'Any questions or comments?',
+										link:
+											<NavigationTitle left href='https://t.me/mybitio' target='_blank'>
+												Reach out to our community
+											</NavigationTitle>
+									},
+									{
+										icon: 'mail',
+										description: 'Want to integrate a transparency portal for your company?',
+										link:
+											<NavigationTitle left href='mailto:info@mybit.io'>
+												Contact us
+											</NavigationTitle>
+									}
+									].map( message => (
+									<Cell desktopCols="4" tabletCols="4" phoneCols="4" align="top" topPadded left>
+		                                <div>
+                                            <ColoredIcon>{ message.icon }</ColoredIcon>
+		                                </div>
+		                                <p style={{ margin: '2px 0'}}>{ message.description }</p>
+                                        {
+											message.link
+                                        }
+		                            </Cell>
+			                        ))
+			                    }
+	                            </Inner>
+							</Grid>
+						</CardWrapper>
+					</Cell>
         		{ 
         			projects.length > 0 ?
 					projects.map( project => (
