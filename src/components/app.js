@@ -14,6 +14,9 @@ import Document from '../routes/document';
 import NotFound from '../routes/404';
 import MessageBoard from '../routes/message_board';
 import Message from '../routes/message';
+import Inboxes from '../routes/inboxes';
+import EmailForward from '../routes/email_forward';
+
 
 import API from '../api';
 
@@ -62,6 +65,8 @@ export default class App extends Component {
 					<Document path="/project/:projectId/vault/:vaultId/document/:documentId" API={this.API} hasLoaded={this.hasLoaded} />
 					<MessageBoard path="/project/:projectId/message_board/:messageBoardId" API={this.API} hasLoaded={this.hasLoaded} />
 					<Message path="/project/:projectId/message_board/:messageBoardId/message/:messageId" API={this.API} hasLoaded={this.hasLoaded} />
+					<Inboxes path="/project/:projectId/inbox/:inboxeId" API={this.API} hasLoaded={this.hasLoaded} />
+					<EmailForward path="/project/:projectId/inbox/:inboxeId/email/:emailId" API={this.API} hasLoaded={this.hasLoaded} />
 					<NotFound default />
 				</Router>
 				<Footer />

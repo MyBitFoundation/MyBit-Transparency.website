@@ -36,7 +36,7 @@ export default class Home extends Component {
 				<Grid>
         			<Inner>
 					<Cell desktopCols="12" tabletCols="8" phoneCols="4" align="middle">
-						<CardWrapper style={{ padding: '32px' }}>
+						<CardWrapper style={{ padding: '8px 32px' }}>
 							<p>
 							Welcome to the MyBit Transparency Portal. We believe that all projects should be open
 							and transparent to the fullest extent possible. This automated portal plugs directly into
@@ -46,7 +46,10 @@ export default class Home extends Component {
 							</p>
 							<p>
 							Each project is isolated for organisational purposes so you can choose the project you wish
-							to view and then navigate to the different aspects of it.
+							to view and then navigate to the different aspects of it. If you want to send us some comments,
+							please do so through the following <a href='mailto:save-eVarbxnAw4Rx@3.basecamp.com'>mail</a>,
+							and we will answer your back as soon as we can. You can see our existing responses in our&nbsp;
+							<a href="#" onClick={() => route('project/10222521/inbox/1482309531')}>email forwards</a> section.
 							</p>
 							<Grid full last slim>
 								<Inner>
@@ -72,7 +75,7 @@ export default class Home extends Component {
 										icon: 'mail',
 										description: 'Want to integrate a transparency portal for your company?',
 										link:
-											<NavigationTitle left href='mailto:info@mybit.io'>
+											<NavigationTitle left href='mailto:cm@mybit.io'>
 												Contact us
 											</NavigationTitle>
 									}
