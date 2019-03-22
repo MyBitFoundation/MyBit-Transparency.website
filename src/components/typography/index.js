@@ -109,13 +109,28 @@ export const Subline = styled.small`
 `
 
 export const CommentWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
-    @media ${device.tablet} {
-    	flex-direction: row;
-    }
+	& {
+		position: relative;
+	    display: flex;
+	    align-items: center;
+	    justify-content: flex-start;
+	    flex-direction: column;
+	    @media ${device.tablet} {
+	    	flex-direction: row;
+	    	padding: 20px 0;
+	    }
+	}
+	&:not(:last-child):after {
+		content: '';
+		width: 100%;
+		height: 2px;
+		background-color: #eee;
+		position: absolute;
+		bottom: -10px;
+		@media ${device.tablet} {
+			bottom: 0;
+		}
+	}
 `
 
 export const CommentTitle = styled(ProfileTitle)`
@@ -123,6 +138,8 @@ export const CommentTitle = styled(ProfileTitle)`
     width: 100%;
     @media ${device.tablet} {
         width: 25%;
+        top: 0;
+    	margin-top: 0;
     }
 `
 
