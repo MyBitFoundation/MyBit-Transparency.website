@@ -41,7 +41,7 @@ export const NavigationTitle = styled.a`
     }
     
     img  {
-        margin-right: 10px;
+        ${ props => props.rightCaret ? 'margin-left: 10px;': 'margin-right: 10px;' } 
     }
 `
 

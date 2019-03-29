@@ -164,17 +164,18 @@ export default class API {
     return todolist;
   }
   
-  async getQuestion(projectId, questionId) {
+  async getQuestion(projectId, questionId, pageNumber) {
     const question = (project => 
-      project && project[questionId])(this.projectMap[projectId]) ?
-      this.projectMap[projectId][questionId] :
+      project && project[`${questionId}-${pageNumber}`])(this.projectMap[projectId]) ?
+      this.projectMap[projectId][`${questionId}-${pageNumber}`] :
       await this.instance.post('/question',
         {
           projectId: projectId,
-          questionId: questionId
+          questionId: questionId,
+          pageNumber: ~~pageNumber
         })
       .then(response => response.data)
-    this.projectMap[projectId][questionId] = question;
+    this.projectMap[projectId][`${questionId}-${pageNumber}`] = question;
     return question;
   }
   
