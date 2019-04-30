@@ -13,8 +13,8 @@ export default class Vault extends Component {
         this.state = {
             projectId: this.props.projectId,
             project: {},
-            vaultId: this.props.vaultId,
-            documents: [],
+            inboxeId: this.props.inboxeId,
+            emails: [],
             isEmpty: false
         }
         this.reviewIfEmpty = this.reviewIfEmpty.bind(this);
@@ -23,48 +23,48 @@ export default class Vault extends Component {
         const { projectId } = this.props;
         route(`/project/${projectId}`)
     }
-    goToDocument(documentId) {
-        const { projectId, vaultId } = this.props;
-        route(`/project/${projectId}/vault/${vaultId}/document/${documentId}`)
+    goToDocument(emailId) {
+        const { projectId, inboxeId } = this.props;
+        route(`/project/${projectId}/inbox/${inboxeId}/email/${emailId}`)
     }
     async componentDidMount() {
         const { hasLoaded } = this.props;
 		hasLoaded();
     }
     async componentWillMount() {
-		const { API, vaultId, projectId } = this.props;
+		const { API, inboxeId, projectId } = this.props;
 		const project = await API.getProject(projectId);
-        const documents = await API.getDocumentsFromVault(projectId, vaultId);
- 		this.setState({ project, documents })
+        const emails = await API.getEmailsFromInbox(projectId, inboxeId);
+ 		this.setState({ project, emails })
 		setTimeout(this.reviewIfEmpty, API.WAITING_TIME_IN_MS);
 	}
 	reviewIfEmpty() {
-	    const { documents } = this.state;
-	    this.setState({ isEmpty: !documents.length > 0 })
+	    const { emails } = this.state;
+	    this.setState({ isEmpty: !emails.length > 0 })
 	}
     render() {
-        const { documents, project, isEmpty } = this.state;
+        const { emails, project, isEmpty } = this.state;
         const { API } = this.props;
         return (
             <Page>
                 <NavigationTitle top onClick={() => this.backToProject()}><img src={leftCaret} />Back to { project.name }</NavigationTitle>
-				<Title>Documents for { project.name || 'Loading...' }</Title>
+				<Title>Emails for { project.name || 'Loading...' }</Title>
 				<Grid>
         			<Inner>
         			<Cell desktopCols="12" tabletCols="8" phoneCols="4" align="middle">
         			    <CardWrapper center>
         			        {
-        			            documents.length > 0 ?
+        			            emails.length > 0 ?
         			            <Grid full>
         			                <Inner>
         			                    { 
-        			                        documents.map( component => (
+        			                        emails.map( component => (
         			                            <Cell desktopCols="4" tabletCols="8" phoneCols="4" align="top" padded left>
         			                                <ComponentTitle>
         			                                    { component.title }
         			                                </ComponentTitle>
         			                                <NavigationTitle left onClick={() => this.goToDocument(component.id)}>
-        			                                    See document
+        			                                    See email
         			                                </NavigationTitle>
         			                            </Cell>
         			                        ))
@@ -73,8 +73,8 @@ export default class Vault extends Component {
         			            </Grid> :
         			            isEmpty ?
         			            <CardHeader>
-    							    <ProjectTitle>There are currently no documents in this project.</ProjectTitle>
-    							    <p style={{ margin: '16px' }}>We couldn’t find any documents or files in this project, see another one.</p>
+    							    <ProjectTitle>There are currently no emails in this project.</ProjectTitle>
+    							    <p style={{ margin: '16px' }}>We couldn’t find any emails in this project, see another one.</p>
     						    </CardHeader> :
         			            <CardHeader>
         			                <Spinner />

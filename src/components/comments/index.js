@@ -2,12 +2,20 @@ import { h, Component } from 'preact';
 import Dialog from 'preact-material-components/Dialog';
 import 'preact-material-components/Dialog/style.css';
 import { Figure } from '../figure';
+import styled from 'styled-components';
 import { 
   NavigationTitle,
   CommentWrapper,
   CommentTitle,
   CommentContentWrapper
 } from '../typography';
+
+
+const Body = styled(Dialog.Body)`
+  &.mdc-dialog__body {
+    max-height: 60vh;  
+  }
+`
 
 export default class Comments extends Component {
   constructor(props) {
@@ -39,22 +47,22 @@ export default class Comments extends Component {
         }
         <Dialog ref={ scrollingDlg => this.scrollingDlg = scrollingDlg }>
           <Dialog.Header>Comments</Dialog.Header>
-          <Dialog.Body scrollable={true}>
+          <Body scrollable={true}>
             <div>
             {
                 comments.length > 0 ?
                 comments.map( comment => (
                     <CommentWrapper>
-                        <CommentTitle>
-                            <Figure creator={comment.creator} />
+                        <CommentTitle style={{ alignSelf: 'flex-start' }}>
+                            <Figure creator={comment.creator} time={comment.created_at} />
                         </CommentTitle>
                         <CommentContentWrapper dangerouslySetInnerHTML={{ __html:comment.content }}/>
                     </CommentWrapper>
-                )) :
+                  )) :
                 <p>Loading...</p>
             }
             </div>
-          </Dialog.Body>
+          </Body>
           <Dialog.Footer>
             <Dialog.FooterButton accept={true}>Close</Dialog.FooterButton>
           </Dialog.Footer>

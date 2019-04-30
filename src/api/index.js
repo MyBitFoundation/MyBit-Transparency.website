@@ -50,7 +50,7 @@ export default class API {
       schedule: false,
       questionnaire: true,
       vault: true,
-      inbox: false,
+      inbox: true,
       todoset: true
     }
     this.categoryIconMap = {
@@ -133,6 +133,16 @@ export default class API {
     return documents;
   }
   
+  async getEmailsFromInbox(projectId, inboxeId) {
+    const emails = (project => 
+      project && project[inboxeId])(this.projectMap[inboxeId]) ?
+      this.projectMap[projectId][inboxeId] :
+      await this.instance.post('/inboxes', { projectId: projectId, inboxeId: inboxeId })
+        .then((response) => response.data)
+    this.projectMap[projectId][inboxeId] = emails;
+    return emails;
+  }
+  
   async getTodolist(projectId, todolistId) {
     const todolist = (project => 
       project && project[todolistId])(this.projectMap[projectId]) ?
@@ -154,17 +164,18 @@ export default class API {
     return todolist;
   }
   
-  async getQuestion(projectId, questionId) {
+  async getQuestion(projectId, questionId, pageNumber) {
     const question = (project => 
-      project && project[questionId])(this.projectMap[projectId]) ?
-      this.projectMap[projectId][questionId] :
+      project && project[`${questionId}-${pageNumber}`])(this.projectMap[projectId]) ?
+      this.projectMap[projectId][`${questionId}-${pageNumber}`] :
       await this.instance.post('/question',
         {
           projectId: projectId,
-          questionId: questionId
+          questionId: questionId,
+          pageNumber: ~~pageNumber
         })
       .then(response => response.data)
-    this.projectMap[projectId][questionId] = question;
+    this.projectMap[projectId][`${questionId}-${pageNumber}`] = question;
     return question;
   }
   
@@ -208,6 +219,20 @@ export default class API {
       .then(response => response.data)
     this.projectMap[projectId][messageId] = message;
     return message;
+  }
+  
+  async getEmail(projectId, emailId) {
+    const email = (project => 
+      project && project[emailId])(this.projectMap[emailId]) ?
+      this.projectMap[projectId][emailId] :
+      await this.instance.post('/email_forward',
+        {
+          projectId: projectId,
+          emailForwardId: emailId
+        })
+      .then(response => response.data)
+    this.projectMap[projectId][emailId] = email;
+    return email;
   }
 
   async getDocument(projectId, documentId) {
