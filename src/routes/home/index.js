@@ -67,7 +67,7 @@ export default class Home extends Component {
 										icon: 'chat',
 										description: 'Any questions or comments?',
 										link:
-											<NavigationTitle left href='https://t.me/mybitio' target='_blank'>
+											<NavigationTitle left href='https://www.reddit.com/r/MyBitToken/' target='_blank'>
 												Reach out to our community
 											</NavigationTitle>
 									},
